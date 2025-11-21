@@ -1,50 +1,34 @@
+"use client";
+
 import Link from "next/link";
-import { Clock, Users, Calendar, Tag, ArrowRight } from "lucide-react";
+import { Clock, Users, Calendar, ArrowLeft, TrendingUp } from "lucide-react";
 
 const etudes = [
   {
     id: "barometre-talents",
-    title: "Baromètre Acquisition de Talents en Afrique",
-    description: "Analyse approfondie des tendances d acquisition de talents sur le continent africain.",
+    title: "Baromètre Acquisition Talents",
+    description: "Analyse en temps réel du marché de l'acquisition de talents : profils recherchés, coûts de recrutement, débauchage et rétention",
     duration: "15-20 min",
     participants: "1,247",
-    deadline: "28 Février 2025",
+    deadline: "28 Février 2024",
     category: "RH & Talents",
-    status: "En cours",
-    isPremium: false,
+    status: "Ouvert",
+    icon: "users",
+    iconBg: "bg-red-100",
+    iconColor: "text-red-500",
   },
   {
     id: "transformation-digitale",
-    title: "Transformation Digitale des Entreprises Africaines",
-    description: "État des lieux de la digitalisation des entreprises en Afrique.",
-    duration: "20-25 min",
-    participants: "892",
-    deadline: "15 Mars 2025",
-    category: "Technologie",
-    status: "En cours",
-    isPremium: false,
-  },
-  {
-    id: "fintech-afrique",
-    title: "L Essor des Fintech en Afrique de l Ouest",
-    description: "Analyse du boom des technologies financières. Mobile money, néobanques, et services financiers digitaux.",
-    duration: "18 min",
-    participants: "654",
-    deadline: "30 Mars 2025",
-    category: "Finance",
-    status: "En cours",
-    isPremium: true,
-  },
-  {
-    id: "ecommerce-afrique",
-    title: "E-commerce et Comportement d Achat en Ligne",
-    description: "Comprendre les habitudes d achat en ligne des consommateurs africains.",
-    duration: "15 min",
-    participants: "523",
-    deadline: "10 Avril 2025",
-    category: "Commerce",
-    status: "Bientôt",
-    isPremium: true,
+    title: "Transformation Digitale en Afrique",
+    description: "Évaluation de la maturité digitale des entreprises africaines francophones",
+    duration: "15-20 min",
+    participants: "2,847",
+    deadline: "15 Mars 2024",
+    category: "Digital & IA",
+    status: "Ouvert",
+    icon: "trending",
+    iconBg: "bg-blue-100",
+    iconColor: "text-blue-500",
   },
 ];
 
@@ -52,117 +36,89 @@ export default function EtudesPage() {
   return (
     <div className="pt-16 min-h-screen bg-gray-50">
       {/* Header */}
-      <section className="bg-gradient-to-br from-primary-700 to-primary-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Nos Études en Cours</h1>
-          <p className="text-xl text-primary-100 mb-6">
-            Participez à nos recherches et accédez aux résultats en temps réel
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Link href="/" className="inline-flex items-center text-gray-500 hover:text-gray-700 mb-4">
+            <ArrowLeft className="h-4 w-4 mr-1" />
+          </Link>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            Études en Cours
+          </h1>
+          <p className="text-gray-600">
+            Participez à nos recherches et contribuez aux insights sur l&apos;Afrique francophone
           </p>
-          <div className="flex flex-wrap gap-4">
-            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-              <span className="font-semibold">{etudes.length}</span> études actives
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-              <span className="font-semibold">3,316+</span> participants
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
 
       {/* Études Grid */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {etudes.map((etude) => (
-              <div
-                key={etude.id}
-                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
-              >
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          etude.status === "En cours" 
-                            ? "bg-green-100 text-green-700"
-                            : "bg-blue-100 text-blue-700"
-                        }`}>
-                          {etude.status}
-                        </span>
-                        {etude.isPremium && (
-                          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
-                            ⭐ Premium
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">{etude.title}</h3>
-                    </div>
-                  </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {etudes.map((etude) => (
+            <div
+              key={etude.id}
+              className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow"
+            >
+              {/* Header with icon and status */}
+              <div className="flex justify-between items-start mb-4">
+                <div className={`${etude.iconBg} w-12 h-12 rounded-xl flex items-center justify-center`}>
+                  {etude.icon === "users" ? (
+                    <Users className={`h-6 w-6 ${etude.iconColor}`} />
+                  ) : (
+                    <TrendingUp className={`h-6 w-6 ${etude.iconColor}`} />
+                  )}
+                </div>
+                <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
+                  {etude.status}
+                </span>
+              </div>
 
-                  <p className="text-gray-600 mb-4">{etude.description}</p>
+              {/* Title and description */}
+              <h3 className="text-xl font-bold text-gray-900 mb-2">
+                {etude.title}
+              </h3>
+              <p className="text-gray-600 text-sm mb-4">
+                {etude.description}
+              </p>
 
-                  <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
-                    <div className="flex items-center text-gray-600">
-                      <Clock className="h-4 w-4 mr-2" />
-                      <span>{etude.duration}</span>
-                    </div>
-                    <div className="flex items-center text-gray-600">
-                      <Users className="h-4 w-4 mr-2" />
-                      <span>{etude.participants} participants</span>
-                    </div>
-                    <div className="flex items-center text-gray-600">
-                      <Calendar className="h-4 w-4 mr-2" />
-                      <span>Jusqu au {etude.deadline}</span>
-                    </div>
-                    <div className="flex items-center text-gray-600">
-                      <Tag className="h-4 w-4 mr-2" />
-                      <span>{etude.category}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3">
-                    {etude.isPremium ? (
-                      <Link
-                        href="/premium"
-                        className="flex-1 bg-amber-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-amber-600 transition-colors text-center"
-                      >
-                        Accès Premium
-                      </Link>
-                    ) : (
-                      <Link
-                        href={`/etudes/${etude.id}`}
-                        className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center inline-flex items-center justify-center"
-                      >
-                        Participer
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    )}
-                  </div>
+              {/* Metadata */}
+              <div className="grid grid-cols-2 gap-3 mb-4 text-sm text-gray-500">
+                <div className="flex items-center">
+                  <Clock className="h-4 w-4 mr-2" />
+                  <span>{etude.duration}</span>
+                </div>
+                <div className="flex items-center">
+                  <Users className="h-4 w-4 mr-2" />
+                  <span>{etude.participants} participants</span>
+                </div>
+                <div className="flex items-center">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  <span>Jusqu&apos;au {etude.deadline}</span>
+                </div>
+                <div className="text-blue-600 font-medium">
+                  {etude.category}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Premium */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Accédez à Toutes les Études Premium
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Débloquez l accès illimité à toutes nos études exclusives
-          </p>
-          <Link
-            href="/premium"
-            className="bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors inline-flex items-center text-lg"
-          >
-            Voir les Plans Premium
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
+              {/* Participate section */}
+              <p className="text-sm text-gray-500 mb-3">Participer en tant que :</p>
+              
+              {/* Buttons */}
+              <div className="space-y-3">
+                <button className="w-full bg-blue-900 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors flex items-center justify-center">
+                  <Users className="h-4 w-4 mr-2" />
+                  Particulier
+                </button>
+                <button className="w-full bg-white border-2 border-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center">
+                  <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  Entreprise
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

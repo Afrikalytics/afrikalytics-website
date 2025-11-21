@@ -1,93 +1,146 @@
 import Link from "next/link";
-import { BarChart3, Mail, MapPin } from "lucide-react";
+import { MapPin, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo et Description */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <BarChart3 className="h-8 w-8 text-primary-500" />
-              <span className="font-bold text-xl text-white">
-                Afrikalytics AI
-              </span>
-            </div>
-            <p className="text-gray-400 mb-4">
-              Plateforme de business intelligence alimentée par l&apos;IA, 
-              spécialisée dans l&apos;analyse du marché africain.
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Afrikalytics AI */}
+          <div>
+            <h3 className="text-white font-bold text-lg mb-4">Afrikalytics AI</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Cabinet de recherche et d&apos;analyse spécialisé dans l&apos;environnement business africain francophone.
             </p>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <Mail className="h-4 w-4" />
-                <span>software@hcexecutive.net</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4" />
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center">
+                <MapPin className="h-4 w-4 mr-2 text-gray-500" />
                 <span>Dakar, Sénégal</span>
+              </div>
+              <div className="flex items-center">
+                <Mail className="h-4 w-4 mr-2 text-gray-500" />
+                <span>contact@afrikalytics.com</span>
+              </div>
+              <div className="flex items-center">
+                <Phone className="h-4 w-4 mr-2 text-gray-500" />
+                <span>+221 77 XXX XX XX</span>
               </div>
             </div>
           </div>
 
-          {/* Liens Rapides */}
+          {/* Nos Services */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Liens Rapides</h3>
-            <ul className="space-y-2">
+            <h3 className="text-white font-bold text-lg mb-4">Nos Services</h3>
+            <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/about" className="hover:text-primary-500 transition-colors">
-                  À Propos
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Études RH
                 </Link>
               </li>
               <li>
-                <Link href="/etudes" className="hover:text-primary-500 transition-colors">
-                  Études
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  AI Readiness Assessment
                 </Link>
               </li>
               <li>
-                <Link href="/premium" className="hover:text-primary-500 transition-colors">
-                  Devenir Premium
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Salary Surveys
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-primary-500 transition-colors">
-                  Contact
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Business Intelligence
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Consulting Stratégique
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Ressources */}
+          {/* Entreprises */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Ressources</h3>
-            <ul className="space-y-2">
+            <h3 className="text-white font-bold text-lg mb-4">Entreprises</h3>
+            <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/blog" className="hover:text-primary-500 transition-colors">
-                  Blog
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Participer à une étude
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-primary-500 transition-colors">
-                  FAQ
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Demander une étude sur mesure
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-primary-500 transition-colors">
-                  Confidentialité
+                <Link href="/premium" className="hover:text-white transition-colors">
+                  Accès premium
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-primary-500 transition-colors">
-                  Conditions
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Benchmarking sectoriel
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Contact commercial
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Particuliers */}
+          <div>
+            <h3 className="text-white font-bold text-lg mb-4">Particuliers</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Participer aux sondages
+                </Link>
+              </li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Salary benchmarks
+                </Link>
+              </li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Tendances carrière
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Newsletter
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">
+                  Communauté
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Afrikalytics AI. Tous droits réservés.</p>
+        {/* Bottom */}
+        <div className="border-t border-gray-800 mt-10 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <p>© 2024 Afrikalytics AI. Tous droits réservés.</p>
+            <div className="flex gap-6 mt-4 md:mt-0">
+              <Link href="/mentions-legales" className="hover:text-white transition-colors">
+                Mentions légales
+              </Link>
+              <Link href="/privacy" className="hover:text-white transition-colors">
+                Politique de confidentialité
+              </Link>
+              <Link href="/terms" className="hover:text-white transition-colors">
+                Conditions d&apos;utilisation
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
