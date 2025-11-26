@@ -59,10 +59,10 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
                     <a
-                      href="mailto:software@hcexecutive.net"
+                      href="mailto:contact@afrikalytics.com"
                       className="text-primary-600 hover:text-primary-700"
                     >
-                      software@hcexecutive.net
+                      contact@afrikalytics.com
                     </a>
                   </div>
                 </div>
@@ -83,7 +83,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Téléphone</h3>
-                    <p className="text-gray-600">+221 XX XXX XX XX</p>
+                    <p className="text-gray-600">+221 77 361 90 28</p>
                   </div>
                 </div>
               </div>

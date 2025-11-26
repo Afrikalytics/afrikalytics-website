@@ -62,7 +62,7 @@ Le site sera accessible sur : **http://localhost:3000**
 
 ## 👥 Équipe
 
-- **Email:** software@hcexecutive.net
+- **Email:** contact@afrikalytics.com
 - **Localisation:** Dakar, Sénégal
 
 ---
