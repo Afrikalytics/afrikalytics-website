@@ -1,8 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { Clock, Users, Calendar, ArrowLeft, TrendingUp, FileText, Briefcase } from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  BarChart3,
+  Clock,
+  Calendar,
+  ChevronRight,
+  Filter,
+  Search,
+  Lightbulb,
+  Download,
+  Lock,
+  Users,
+  Building2,
+  Menu,
+  X,
+} from "lucide-react";
 
 const API_URL = "https://web-production-ef657.up.railway.app";
 
@@ -15,24 +29,34 @@ interface Study {
   deadline: string;
   status: string;
   icon: string;
+  is_active: boolean;
   embed_url_particulier: string;
   embed_url_entreprise: string;
 }
 
-export default function EtudesPage() {
-  const [etudes, setEtudes] = useState<Study[]>([]);
+export default function PublicEtudesPage() {
+  const router = useRouter();
+  const [studies, setStudies] = useState<Study[]>([]);
+  const [filteredStudies, setFilteredStudies] = useState<Study[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("Tous");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    fetchEtudes();
+    fetchStudies();
   }, []);
 
-  const fetchEtudes = async () => {
+  useEffect(() => {
+    filterStudies();
+  }, [studies, searchTerm, filterStatus]);
+
+  const fetchStudies = async () => {
     try {
       const response = await fetch(`${API_URL}/api/studies/active`);
       if (response.ok) {
         const data = await response.json();
-        setEtudes(data);
+        setStudies(data);
       }
     } catch (error) {
       console.error("Erreur:", error);
@@ -41,149 +65,283 @@ export default function EtudesPage() {
     }
   };
 
-  const getIconComponent = (icon: string) => {
-    switch (icon) {
-      case "users":
-        return <Users className="h-6 w-6" />;
-      case "trending":
-        return <TrendingUp className="h-6 w-6" />;
-      case "file":
-        return <FileText className="h-6 w-6" />;
-      case "business":
-        return <Briefcase className="h-6 w-6" />;
-      default:
-        return <FileText className="h-6 w-6" />;
+  const filterStudies = () => {
+    let filtered = studies;
+
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (study) =>
+          study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          study.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          study.category.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     }
+
+    if (filterStatus !== "Tous") {
+      filtered = filtered.filter((study) => study.status === filterStatus);
+    }
+
+    setFilteredStudies(filtered);
   };
 
-  const getIconColors = (index: number) => {
-    const colors = [
-      { bg: "bg-red-100", text: "text-red-500" },
-      { bg: "bg-blue-100", text: "text-blue-500" },
-      { bg: "bg-green-100", text: "text-green-500" },
-      { bg: "bg-purple-100", text: "text-purple-500" },
-      { bg: "bg-orange-100", text: "text-orange-500" },
-      { bg: "bg-pink-100", text: "text-pink-500" },
-    ];
-    return colors[index % colors.length];
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Ouvert":
-        return "bg-green-100 text-green-700";
-      case "Fermé":
-        return "bg-red-100 text-red-700";
-      case "Bientôt":
-        return "bg-yellow-100 text-yellow-700";
-      default:
-        return "bg-gray-100 text-gray-700";
-    }
+  const handlePremiumClick = () => {
+    router.push("/login");
   };
 
   if (loading) {
     return (
-      <div className="pt-16 min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="pt-16 min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Link href="/" className="inline-flex items-center text-gray-500 hover:text-gray-700 mb-4">
-            <ArrowLeft className="h-4 w-4 mr-1" />
-          </Link>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            Études en Cours
-          </h1>
-          <p className="text-gray-600">
-            Participez à nos recherches et contribuez aux insights sur l&apos;Afrique francophone
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <a href="/" className="flex items-center gap-2">
+              <div className="bg-blue-600 p-2 rounded-lg">
+                <BarChart3 className="h-6 w-6 text-white" />
+              </div>
+              <span className="font-bold text-xl text-gray-900">Afrikalytics</span>
+            </a>
+
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-6">
+              <a href="/" className="text-gray-600 hover:text-gray-900">Accueil</a>
+              <a href="/etudes" className="text-blue-600 font-medium">Études</a>
+              <a href="/tarifs" className="text-gray-600 hover:text-gray-900">Tarifs</a>
+              <a href="/login" className="text-gray-600 hover:text-gray-900">Connexion</a>
+              <a
+                href="/tarifs"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                Devenir Premium
+              </a>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-gray-600"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Nav */}
+          {mobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-gray-200">
+              <nav className="flex flex-col gap-4">
+                <a href="/" className="text-gray-600 hover:text-gray-900">Accueil</a>
+                <a href="/etudes" className="text-blue-600 font-medium">Études</a>
+                <a href="/tarifs" className="text-gray-600 hover:text-gray-900">Tarifs</a>
+                <a href="/login" className="text-gray-600 hover:text-gray-900">Connexion</a>
+                <a
+                  href="/tarifs"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-center"
+                >
+                  Devenir Premium
+                </a>
+              </nav>
+            </div>
+          )}
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-12 lg:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-4">Nos Études de Marché</h1>
+          <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+            Participez à nos études et accédez aux insights exclusifs sur les marchés africains
           </p>
         </div>
-      </div>
+      </section>
 
-      {/* Études Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {etudes.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">Aucune étude disponible pour le moment.</p>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Filters */}
+        <div className="bg-white rounded-xl shadow-sm p-4 lg:p-6 mb-6">
+          <div className="flex flex-col lg:flex-row gap-4">
+            {/* Search */}
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Rechercher une étude..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+
+            {/* Status Filter */}
+            <div className="flex items-center gap-2">
+              <Filter className="h-5 w-5 text-gray-400" />
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="Tous">Tous les statuts</option>
+                <option value="Ouvert">Ouvert</option>
+                <option value="Fermé">Fermé</option>
+                <option value="Bientôt">Bientôt</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Results count */}
+          <div className="mt-4 text-sm text-gray-500">
+            {filteredStudies.length} étude{filteredStudies.length !== 1 ? "s" : ""} trouvée
+            {filteredStudies.length !== 1 ? "s" : ""}
+          </div>
+        </div>
+
+        {/* Studies Grid */}
+        {filteredStudies.length === 0 ? (
+          <div className="bg-white rounded-xl shadow-sm p-12 text-center">
+            <p className="text-gray-500 text-lg">Aucune étude trouvée.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {etudes.map((etude, index) => {
-              const colors = getIconColors(index);
-              return (
-                <div
-                  key={etude.id}
-                  className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  {/* Header with icon and status */}
-                  <div className="flex justify-between items-start mb-4">
-                    <div className={`${colors.bg} w-12 h-12 rounded-xl flex items-center justify-center ${colors.text}`}>
-                      {getIconComponent(etude.icon)}
-                    </div>
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getStatusColor(etude.status)}`}>
-                      {etude.status}
-                    </span>
-                  </div>
-
-                  {/* Title and description */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {etude.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                    {etude.description}
-                  </p>
-
-                  {/* Metadata */}
-                  <div className="grid grid-cols-2 gap-3 mb-4 text-sm text-gray-500">
-                    <div className="flex items-center">
-                      <Clock className="h-4 w-4 mr-2" />
-                      <span>{etude.duration}</span>
-                    </div>
-                    {etude.deadline && (
-                      <div className="flex items-center">
-                        <Calendar className="h-4 w-4 mr-2" />
-                        <span>Jusqu&apos;au {etude.deadline}</span>
-                      </div>
-                    )}
-                    <div className="col-span-2 text-blue-600 font-medium">
-                      {etude.category}
-                    </div>
-                  </div>
-
-                  {/* Participate section */}
-                  <p className="text-sm text-gray-500 mb-3">Participer en tant que :</p>
-                  
-                  {/* Buttons */}
-                  <div className="space-y-3">
-                    <Link
-                      href={`/etudes/${etude.id}?type=particulier`}
-                      className="w-full bg-blue-900 text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors flex items-center justify-center"
-                    >
-                      <Users className="h-4 w-4 mr-2" />
-                      Particulier
-                    </Link>
-                    <Link
-                      href={`/etudes/${etude.id}?type=entreprise`}
-                      className="w-full bg-white border-2 border-gray-200 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center"
-                    >
-                      <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                      </svg>
-                      Entreprise
-                    </Link>
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {filteredStudies.map((study) => (
+              <div
+                key={study.id}
+                className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow"
+              >
+                {/* Header */}
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 flex-1">{study.title}</h3>
+                  <span
+                    className={`text-xs font-semibold px-3 py-1 rounded-full ml-3 ${
+                      study.status === "Ouvert"
+                        ? "bg-green-100 text-green-700"
+                        : study.status === "Fermé"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {study.status}
+                  </span>
                 </div>
-              );
-            })}
+
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{study.description}</p>
+
+                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    <span>{study.duration}</span>
+                  </div>
+                  {study.deadline && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      <span>Jusqu&apos;au {study.deadline}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="text-blue-600 font-medium text-sm mb-4">{study.category}</div>
+
+                {/* Boutons */}
+                <div className="space-y-2 pt-4 border-t border-gray-100">
+                  {/* Boutons Participer - Seulement si Ouvert */}
+                  {study.status === "Ouvert" && (
+                    <div className="grid grid-cols-2 gap-2 mb-2">
+                      <a
+                        href={`/etudes/${study.id}?type=particulier`}
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                      >
+                        <Users className="h-5 w-5" />
+                        <span className="font-medium">Particulier</span>
+                      </a>
+                      <a
+                        href={`/etudes/${study.id}?type=entreprise`}
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                      >
+                        <Building2 className="h-5 w-5" />
+                        <span className="font-medium">Entreprise</span>
+                      </a>
+                    </div>
+                  )}
+
+                  {/* Bouton Résultats - Toujours visible avec 🔒 */}
+                  <button
+                    onClick={handlePremiumClick}
+                    className="flex items-center justify-between w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Lock className="h-5 w-5 text-yellow-600" />
+                      <span className="font-medium">Voir les résultats</span>
+                      <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">Premium</span>
+                    </div>
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+
+                  {/* Boutons Insight & Rapport - Seulement si Fermé */}
+                  {study.status === "Fermé" && (
+                    <>
+                      <button
+                        onClick={handlePremiumClick}
+                        className="flex items-center justify-between w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Lock className="h-5 w-5 text-yellow-600" />
+                          <Lightbulb className="h-5 w-5 text-purple-500" />
+                          <span className="font-medium">Lire l&apos;insight</span>
+                          <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">Premium</span>
+                        </div>
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
+
+                      <button
+                        onClick={handlePremiumClick}
+                        className="flex items-center justify-between w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Lock className="h-5 w-5 text-yellow-600" />
+                          <Download className="h-5 w-5 text-green-500" />
+                          <span className="font-medium">Télécharger le rapport</span>
+                          <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">Premium</span>
+                        </div>
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         )}
-      </div>
+
+        {/* CTA Section */}
+        <div className="mt-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 lg:p-12 text-white text-center">
+          <h2 className="text-2xl lg:text-3xl font-bold mb-4">
+            Accédez à tous les résultats et insights
+          </h2>
+          <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+            Devenez membre Premium pour consulter les analyses détaillées, télécharger les rapports complets et accéder à notre intelligence de marché exclusive.
+          </p>
+          <a
+            href="/tarifs"
+            className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
+          >
+            Découvrir les offres Premium
+            <ChevronRight className="h-5 w-5" />
+          </a>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8 mt-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-400">© 2024 Afrikalytics. Tous droits réservés.</p>
+        </div>
+      </footer>
     </div>
   );
 }
