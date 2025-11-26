@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 
+const API_URL = "https://web-production-ef657.up.railway.app";
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -12,15 +14,34 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setError("");
+
+    try {
+      const response = await fetch(`${API_URL}/api/contacts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de l'envoi du message");
+      }
+
       setSubmitted(true);
       setFormData({ name: "", email: "", company: "", message: "" });
-    }, 1000);
+    } catch (err) {
+      setError("Une erreur est survenue. Veuillez réessayer.");
+      console.error("Erreur:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -33,10 +54,10 @@ export default function ContactPage() {
   return (
     <div className="pt-16 min-h-screen bg-gray-50">
       {/* Header */}
-      <section className="bg-gradient-to-br from-primary-700 to-primary-900 text-white py-16">
+      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contactez-Nous</h1>
-          <p className="text-xl text-primary-100">
+          <p className="text-xl text-blue-100">
             Notre équipe est là pour répondre à toutes vos questions
           </p>
         </div>
@@ -53,14 +74,14 @@ export default function ContactPage() {
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="bg-primary-100 p-3 rounded-lg mr-4">
-                    <Mail className="h-6 w-6 text-primary-600" />
+                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
+                    <Mail className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
                     <a
                       href="mailto:contact@afrikalytics.com"
-                      className="text-primary-600 hover:text-primary-700"
+                      className="text-blue-600 hover:text-blue-700"
                     >
                       contact@afrikalytics.com
                     </a>
@@ -68,8 +89,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="bg-primary-100 p-3 rounded-lg mr-4">
-                    <MapPin className="h-6 w-6 text-primary-600" />
+                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
+                    <MapPin className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Adresse</h3>
@@ -78,8 +99,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="bg-primary-100 p-3 rounded-lg mr-4">
-                    <Phone className="h-6 w-6 text-primary-600" />
+                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
+                    <Phone className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Téléphone</h3>
@@ -88,7 +109,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="mt-8 p-6 bg-primary-50 rounded-lg">
+              <div className="mt-8 p-6 bg-blue-50 rounded-lg">
                 <h3 className="font-semibold text-gray-900 mb-2">Horaires</h3>
                 <p className="text-gray-600">
                   Lundi - Vendredi: 9h00 - 18h00 (GMT)<br />
@@ -114,13 +135,19 @@ export default function ContactPage() {
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="mt-4 text-primary-600 hover:text-primary-700 font-semibold"
+                    className="mt-4 text-blue-600 hover:text-blue-700 font-semibold"
                   >
                     Envoyer un autre message
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {error && (
+                    <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
+                      {error}
+                    </div>
+                  )}
+
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                       Nom complet *
@@ -132,7 +159,7 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Jean Dupont"
                     />
                   </div>
@@ -148,7 +175,7 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="jean@example.com"
                     />
                   </div>
@@ -163,7 +190,7 @@ export default function ContactPage() {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Nom de votre entreprise"
                     />
                   </div>
@@ -179,7 +206,7 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                       placeholder="Comment pouvons-nous vous aider ?"
                     />
                   </div>
@@ -187,10 +214,13 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 flex items-center justify-center"
+                    className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
                   >
                     {isSubmitting ? (
-                      "Envoi en cours..."
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Envoi en cours...
+                      </>
                     ) : (
                       <>
                         Envoyer le message
