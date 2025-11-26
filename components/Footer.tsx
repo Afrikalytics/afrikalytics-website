@@ -23,7 +23,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center">
                 <Phone className="h-4 w-4 mr-2 text-gray-500" />
-                <span>+221 77 XXX XX XX</span>
+                <span>+221 77 361 90 28</span>
               </div>
             </div>
           </div>
