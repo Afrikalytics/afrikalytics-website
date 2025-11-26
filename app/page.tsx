@@ -1,7 +1,43 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { TrendingUp, BarChart3, Users, FileText, Building2, User, ArrowRight } from "lucide-react";
+import { TrendingUp, BarChart3, Users, FileText, Building2, User, ArrowRight, Clock } from "lucide-react";
+
+const API_URL = "https://web-production-ef657.up.railway.app";
+
+interface Study {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  duration: string;
+  status: string;
+}
 
 export default function Home() {
+  const [studies, setStudies] = useState<Study[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchStudies();
+  }, []);
+
+  const fetchStudies = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/studies/active`);
+      if (response.ok) {
+        const data = await response.json();
+        // Prendre les 3 dernières études
+        setStudies(data.slice(0, 3));
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="pt-16">
       {/* Hero Section */}
@@ -184,61 +220,69 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Dernières Publications */}
+      {/* Dernières Publications - DYNAMIQUE */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
             Dernières Publications
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Publication 1 */}
-            <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Salary Survey 2024 - Secteur Tech
-              </h3>
-              <p className="text-gray-700 font-medium mb-3">
-                Analyse complète des rémunérations dans la tech en Afrique francophone
-              </p>
-              <p className="text-gray-600 text-sm mb-4">
-                Étude sur 1,200+ professionnels dans 8 pays. Découvrez les tendances salariales, les écarts de rémunération et les compétences les plus valorisées.
-              </p>
-              <Link href="/etudes" className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center">
-                Lire l&apos;étude <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
+          {loading ? (
+            <div className="flex justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
             </div>
+          ) : studies.length === 0 ? (
+            <div className="text-center text-gray-500">
+              <p>Aucune étude disponible pour le moment.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {studies.map((study) => (
+                <div key={study.id} className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 flex-1">
+                      {study.title}
+                    </h3>
+                    <span
+                      className={`text-xs font-semibold px-2 py-1 rounded-full ml-2 ${
+                        study.status === "Ouvert"
+                          ? "bg-green-100 text-green-700"
+                          : study.status === "Fermé"
+                          ? "bg-red-100 text-red-700"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {study.status}
+                    </span>
+                  </div>
+                  <p className="text-gray-700 font-medium mb-3">{study.category}</p>
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    {study.description}
+                  </p>
+                  <div className="flex items-center text-gray-500 text-sm mb-4">
+                    <Clock className="h-4 w-4 mr-1" />
+                    <span>{study.duration}</span>
+                  </div>
+                  <Link 
+                    href={study.status === "Ouvert" ? `/etudes/${study.id}?type=particulier` : `/etudes`}
+                    className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center"
+                  >
+                    {study.status === "Ouvert" ? "Participer" : "Voir les résultats"} 
+                    <ArrowRight className="ml-1 h-4 w-4" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
 
-            {/* Publication 2 */}
-            <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                AI Readiness Index Afrique 2024
-              </h3>
-              <p className="text-gray-700 font-medium mb-3">
-                État de la maturité IA des entreprises africaines
-              </p>
-              <p className="text-gray-600 text-sm mb-4">
-                Évaluation de 500+ entreprises sur leur préparation à l&apos;IA. Benchmarks sectoriels et roadmaps de transformation digitale.
-              </p>
-              <Link href="/etudes" className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center">
-                Découvrir <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
-
-            {/* Publication 3 */}
-            <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Tendances RH Post-COVID
-              </h3>
-              <p className="text-gray-700 font-medium mb-3">
-                Impact durable sur le marché du travail africain
-              </p>
-              <p className="text-gray-600 text-sm mb-4">
-                Analyse des nouvelles dynamiques RH : télétravail, reconversion, nouvelles attentes des talents en Afrique francophone.
-              </p>
-              <Link href="/etudes" className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center">
-                Consulter <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </div>
+          <div className="text-center mt-10">
+            <Link
+              href="/etudes"
+              className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Voir toutes les études
+              <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
         </div>
       </section>
