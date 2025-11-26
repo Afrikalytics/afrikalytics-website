@@ -1,7 +1,7 @@
 {
   "name": "afrikalytics-website",
   "version": "1.0.0",
-  "description": "Site public et landing page pour Afrikalytics AI",
+  "description": "Site public et landing page pour Afrikalytics AI by Marketym",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -6,11 +6,11 @@ export default function Footer() {
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Afrikalytics AI */}
+          {/* Afrikalytics AI by Marketym */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Afrikalytics AI</h3>
+            <h3 className="text-white font-bold text-lg mb-4">Afrikalytics AI by Marketym</h3>
             <p className="text-gray-400 text-sm mb-4">
-              Cabinet de recherche et d&apos;analyse spécialisé dans l&apos;environnement business africain francophone.
+              Afrikalytics AI est une solution d'études de marché du cabinet MARKETYM by H&C qui est une entreprise du groupe H&C.
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex items-center">
@@ -128,7 +128,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-gray-800 mt-10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-            <p>© 2024 Afrikalytics AI. Tous droits réservés.</p>
+            <p>© 2024 Afrikalytics AI by Marketym. Tous droits réservés.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <Link href="/mentions-legales" className="hover:text-white transition-colors">
                 Mentions légales

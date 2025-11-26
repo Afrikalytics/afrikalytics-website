@@ -1,6 +1,6 @@
-# 🌍 Afrikalytics AI - Site Web Public
+# 🌍 Afrikalytics AI by Marketym - Site Web Public
 
-Site web public pour Afrikalytics AI - Intelligence d'Affaires pour l'Afrique
+Site web public pour Afrikalytics AI by Marketym - Intelligence d'Affaires pour l'Afrique
 
 ## 📁 Structure du Projet
 
@@ -67,4 +67,4 @@ Le site sera accessible sur : **http://localhost:3000**
 
 ---
 
-© 2024 Afrikalytics AI. Tous droits réservés.
+© 2024 Afrikalytics AI by Marketym. Tous droits réservés.

@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Afrikalytics AI - Intelligence d'Affaires pour l'Afrique",
+  title: "Afrikalytics AI by Marketym - Intelligence d'Affaires pour l'Afrique",
   description: "Plateforme de business intelligence alimentée par l'IA, spécialisée dans l'analyse du marché africain",
 };
 

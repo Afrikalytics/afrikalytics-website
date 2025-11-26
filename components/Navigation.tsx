@@ -24,7 +24,7 @@ export default function Navigation() {
             <Link href="/" className="flex items-center space-x-2">
               <BarChart3 className="h-8 w-8 text-primary-600" />
               <span className="font-bold text-xl text-gray-900">
-                Afrikalytics AI
+                Afrikalytics AI by Marketym
               </span>
             </Link>
           </div>
