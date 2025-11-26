@@ -85,7 +85,7 @@ export default function PublicEtudesPage() {
   };
 
   const handlePremiumClick = () => {
-    router.push("/login");
+    router.push("https://dashboard.afrikalytics.com/login");
   };
 
   if (loading) {
@@ -106,20 +106,21 @@ export default function PublicEtudesPage() {
               <div className="bg-blue-600 p-2 rounded-lg">
                 <BarChart3 className="h-6 w-6 text-white" />
               </div>
-              <span className="font-bold text-xl text-gray-900">Afrikalytics</span>
+              <span className="font-bold text-xl text-gray-900">Afrikalytics AI</span>
             </a>
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6">
               <a href="/" className="text-gray-600 hover:text-gray-900">Accueil</a>
+              <a href="/#a-propos" className="text-gray-600 hover:text-gray-900">À Propos</a>
               <a href="/etudes" className="text-blue-600 font-medium">Études</a>
-              <a href="/tarifs" className="text-gray-600 hover:text-gray-900">Tarifs</a>
-              <a href="/login" className="text-gray-600 hover:text-gray-900">Connexion</a>
+              <a href="/#premium" className="text-gray-600 hover:text-gray-900">Premium</a>
+              <a href="/#contact" className="text-gray-600 hover:text-gray-900">Contact</a>
               <a
-                href="/tarifs"
+                href="https://dashboard.afrikalytics.com/login"
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
               >
-                Devenir Premium
+                Se Connecter
               </a>
             </nav>
 
@@ -137,14 +138,15 @@ export default function PublicEtudesPage() {
             <div className="md:hidden py-4 border-t border-gray-200">
               <nav className="flex flex-col gap-4">
                 <a href="/" className="text-gray-600 hover:text-gray-900">Accueil</a>
+                <a href="/#a-propos" className="text-gray-600 hover:text-gray-900">À Propos</a>
                 <a href="/etudes" className="text-blue-600 font-medium">Études</a>
-                <a href="/tarifs" className="text-gray-600 hover:text-gray-900">Tarifs</a>
-                <a href="/login" className="text-gray-600 hover:text-gray-900">Connexion</a>
+                <a href="/#premium" className="text-gray-600 hover:text-gray-900">Premium</a>
+                <a href="/#contact" className="text-gray-600 hover:text-gray-900">Contact</a>
                 <a
-                  href="/tarifs"
+                  href="https://dashboard.afrikalytics.com/login"
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-center"
                 >
-                  Devenir Premium
+                  Se Connecter
                 </a>
               </nav>
             </div>
@@ -327,7 +329,7 @@ export default function PublicEtudesPage() {
             Devenez membre Premium pour consulter les analyses détaillées, télécharger les rapports complets et accéder à notre intelligence de marché exclusive.
           </p>
           <a
-            href="/tarifs"
+            href="/#premium"
             className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
           >
             Découvrir les offres Premium
