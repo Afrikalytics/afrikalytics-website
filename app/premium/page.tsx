@@ -18,7 +18,7 @@ const plans = [
     ],
     popular: false,
     buttonText: "Commencer gratuitement",
-    buttonLink: "https://dashboard.afrikalytics.com/login",
+    buttonLink: "https://dashboard.afrikalytics.com/register",
   },
   {
     name: "Professionnel",
