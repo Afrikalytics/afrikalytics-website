@@ -37,7 +37,7 @@ const plans = [
     ],
     popular: true,
     buttonText: "Choisir Professionnel",
-    buttonLink: "https://abonnement.afrikalytics.com/product/plan-professional",
+    buttonLink: "/checkout",
   },
   {
     name: "Entreprise",
