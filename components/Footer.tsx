@@ -118,7 +118,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
-                  Communauté
+                  A propos
                 </Link>
               </li>
             </ul>
@@ -128,15 +128,12 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-gray-800 mt-10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-            <p>© 2024 Afrikalytics AI by Marketym. Tous droits réservés.</p>
+            <p>© 2025 Afrikalytics AI by Marketym. Tous droits réservés.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
-              <Link href="/mentions-legales" className="hover:text-white transition-colors">
-                Mentions légales
-              </Link>
-              <Link href="/privacy" className="hover:text-white transition-colors">
+              <Link href="/confidentialite" className="hover:text-white transition-colors">
                 Politique de confidentialité
               </Link>
-              <Link href="/terms" className="hover:text-white transition-colors">
+              <Link href="/cgu" className="hover:text-white transition-colors">
                 Conditions d&apos;utilisation
               </Link>
             </div>
