@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Check, Crown, ArrowLeft, User, Briefcase, Building2 } from "lucide-react";
 
