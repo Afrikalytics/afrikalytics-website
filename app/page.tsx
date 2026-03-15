@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { TrendingUp, BarChart3, Users, FileText, Building2, User, ArrowRight, Clock } from "lucide-react";
-
-const API_URL = "https://web-production-ef657.up.railway.app";
+import { API_URL } from "@/lib/constants";
 
 interface Study {
   id: number;

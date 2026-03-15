@@ -2,16 +2,13 @@
 
 import { useState } from "react";
 import { Crown, Mail, User, ArrowRight, Shield, CheckCircle, Loader2 } from "lucide-react";
-
-const API_URL = "https://web-production-ef657.up.railway.app";
+import { API_URL, isSafePaymentUrl } from "@/lib/constants";
 
 export default function CheckoutPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [existingUser, setExistingUser] = useState(false);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -23,6 +20,7 @@ export default function CheckoutPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
         },
         body: JSON.stringify({
           email: email,
@@ -33,9 +31,12 @@ export default function CheckoutPage() {
 
       const data = await response.json();
 
-      if (data.success && data.payment_url) {
+      if (data.success && data.payment_url && isSafePaymentUrl(data.payment_url)) {
         // Rediriger vers PayDunya
         window.location.href = data.payment_url;
+      } else if (data.success && data.payment_url) {
+        setError("URL de paiement invalide. Contactez le support.");
+        setLoading(false);
       } else {
         setError(data.detail || "Erreur lors de la création du paiement");
         setLoading(false);
@@ -44,19 +45,6 @@ export default function CheckoutPage() {
       console.error("Erreur:", err);
       setError("Erreur de connexion. Veuillez réessayer.");
       setLoading(false);
-    }
-  };
-
-  // Vérifier si l'email existe déjà
-  const checkExistingUser = async (emailToCheck: string) => {
-    if (!emailToCheck || !emailToCheck.includes("@")) return;
-    
-    try {
-      const response = await fetch(`${API_URL}/api/studies`);
-      // On ne peut pas vraiment vérifier sans endpoint dédié
-      // Pour l'instant on laisse passer
-    } catch (err) {
-      // Ignorer
     }
   };
 
@@ -153,10 +141,7 @@ export default function CheckoutPage() {
                 <input
                   type="email"
                   value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    checkExistingUser(e.target.value);
-                  }}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   placeholder="votre@email.com"
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"

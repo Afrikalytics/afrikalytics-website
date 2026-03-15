@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
-
-const API_URL = "https://web-production-ef657.up.railway.app";
+import { API_URL } from "@/lib/constants";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -26,6 +25,7 @@ export default function ContactPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
         },
         body: JSON.stringify(formData),
       });
@@ -161,6 +161,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Jean Dupont"
+                      maxLength={100}
                     />
                   </div>
 
@@ -177,6 +178,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="jean@example.com"
+                      maxLength={254}
                     />
                   </div>
 
@@ -192,6 +194,7 @@ export default function ContactPage() {
                       onChange={handleChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Nom de votre entreprise"
+                      maxLength={150}
                     />
                   </div>
 
@@ -208,6 +211,7 @@ export default function ContactPage() {
                       rows={5}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                       placeholder="Comment pouvons-nous vous aider ?"
+                      maxLength={2000}
                     />
                   </div>
 

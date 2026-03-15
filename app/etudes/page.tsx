@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import {
-  BarChart3,
   Clock,
   Calendar,
   ChevronRight,
@@ -14,11 +12,8 @@ import {
   Lock,
   Users,
   Building2,
-  Menu,
-  X,
 } from "lucide-react";
-
-const API_URL = "https://web-production-ef657.up.railway.app";
+import { API_URL } from "@/lib/constants";
 
 interface Study {
   id: number;
@@ -35,13 +30,11 @@ interface Study {
 }
 
 export default function PublicEtudesPage() {
-  const router = useRouter();
   const [studies, setStudies] = useState<Study[]>([]);
   const [filteredStudies, setFilteredStudies] = useState<Study[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("Tous");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchStudies();
@@ -85,7 +78,7 @@ export default function PublicEtudesPage() {
   };
 
   const handlePremiumClick = () => {
-    router.push("https://dashboard.afrikalytics.com/login");
+    window.location.href = "https://dashboard.afrikalytics.com/login";
   };
 
   if (loading) {
@@ -97,63 +90,7 @@ export default function PublicEtudesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <a href="/" className="flex items-center gap-2">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <BarChart3 className="h-6 w-6 text-white" />
-              </div>
-              <span className="font-bold text-xl text-gray-900">Afrikalytics AI by Marketym</span>
-            </a>
-
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-6">
-              <a href="/" className="text-gray-600 hover:text-gray-900">Accueil</a>
-              <a href="/about" className="text-gray-600 hover:text-gray-900">À Propos</a>
-              <a href="/etudes" className="text-blue-600 font-medium">Études</a>
-              <a href="/premium" className="text-gray-600 hover:text-gray-900">Premium</a>
-              <a href="/contact" className="text-gray-600 hover:text-gray-900">Contact</a>
-              <a
-                href="https://dashboard.afrikalytics.com/login"
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-              >
-                Se Connecter
-              </a>
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-gray-600"
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
-
-          {/* Mobile Nav */}
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200">
-              <nav className="flex flex-col gap-4">
-                <a href="/" className="text-gray-600 hover:text-gray-900">Accueil</a>
-                <a href="/about" className="text-gray-600 hover:text-gray-900">À Propos</a>
-                <a href="/etudes" className="text-blue-600 font-medium">Études</a>
-                <a href="/premium" className="text-gray-600 hover:text-gray-900">Premium</a>
-                <a href="/contact" className="text-gray-600 hover:text-gray-900">Contact</a>
-                <a
-                  href="https://dashboard.afrikalytics.com/login"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-center"
-                >
-                  Se Connecter
-                </a>
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
-
+    <div className="pt-16 min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -338,12 +275,6 @@ export default function PublicEtudesPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400">© 2024 Afrikalytics. Tous droits réservés.</p>
-        </div>
-      </footer>
     </div>
   );
 }

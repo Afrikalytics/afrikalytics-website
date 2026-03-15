@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Clock, Calendar, Users } from "lucide-react";
-
-const API_URL = "https://web-production-ef657.up.railway.app";
+import { API_URL, isSafeEmbedUrl } from "@/lib/constants";
 
 interface Study {
   id: number;
@@ -133,12 +132,18 @@ export default function EtudeSondagePage() {
       {/* Survey iframe */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-          <iframe
-            src={embedUrl}
-            className="w-full h-[800px] md:h-[900px] border-0"
-            title={`Sondage ${etude.title}`}
-            allow="camera; microphone"
-          />
+          {isSafeEmbedUrl(embedUrl) ? (
+            <iframe
+              src={embedUrl}
+              className="w-full h-[800px] md:h-[900px] border-0"
+              title={`Sondage ${etude.title}`}
+              sandbox="allow-forms allow-scripts allow-same-origin"
+            />
+          ) : (
+            <div className="flex items-center justify-center h-[400px] text-gray-500">
+              <p>Sondage non disponible pour le moment.</p>
+            </div>
+          )}
         </div>
         
         {/* Footer info */}
