@@ -1,13 +1,13 @@
-import type { Config } from "@jest/types";
-import nextJest from "next/jest";
+const nextJest = require("next/jest");
 
 const createJestConfig = nextJest({
   dir: "./",
 });
 
-const config: Config.InitialOptions = {
+/** @type {import('@jest/types').Config.InitialOptions} */
+const config = {
   testEnvironment: "jsdom",
-  setupFilesAfterSetup: ["<rootDir>/jest.setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
   },
@@ -21,4 +21,4 @@ const config: Config.InitialOptions = {
   },
 };
 
-export default createJestConfig(config);
+module.exports = createJestConfig(config);

@@ -1,8 +1,80 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  MapPin,
+  Phone,
+  Send,
+  Clock,
+  AlertCircle,
+  CheckCircle,
+  User,
+  Building2,
+  MessageSquare,
+} from "lucide-react";
 import { API_URL } from "@/lib/constants";
+import { Input, Textarea } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+
+// ---------------------------------------------------------------------------
+// Animation variants
+// ---------------------------------------------------------------------------
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Contact info data
+// ---------------------------------------------------------------------------
+
+const contactItems = [
+  {
+    icon: <Mail className="h-5 w-5" />,
+    title: "Email",
+    content: (
+      <a
+        href="mailto:contact@afrikalytics.com"
+        className="text-primary-600 hover:text-primary-700 transition-colors font-medium"
+      >
+        contact@afrikalytics.com
+      </a>
+    ),
+  },
+  {
+    icon: <MapPin className="h-5 w-5" />,
+    title: "Adresse",
+    content: <span className="text-surface-600">Dakar, Senegal</span>,
+  },
+  {
+    icon: <Phone className="h-5 w-5" />,
+    title: "Telephone",
+    content: (
+      <a
+        href="tel:+221773619028"
+        className="text-surface-600 hover:text-primary-600 transition-colors"
+      >
+        +221 77 361 90 28
+      </a>
+    ),
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Page component
+// ---------------------------------------------------------------------------
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -37,14 +109,16 @@ export default function ContactPage() {
       setSubmitted(true);
       setFormData({ name: "", email: "", company: "", message: "" });
     } catch (err) {
-      setError("Une erreur est survenue. Veuillez réessayer.");
+      setError("Une erreur est survenue. Veuillez reessayer.");
       console.error("Erreur:", err);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -52,189 +126,223 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-gray-50">
-      {/* Header */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Contactez-Nous</h1>
-          <p className="text-xl text-blue-100">
-            Notre équipe est là pour répondre à toutes vos questions
-          </p>
-        </div>
+    <div className="pt-16 min-h-screen bg-surface-50">
+      {/* ----------------------------------------------------------------- */}
+      {/* Hero */}
+      {/* ----------------------------------------------------------------- */}
+      <section className="bg-surface-950 text-white py-20">
+        <motion.div
+          className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainer}
+        >
+          <motion.h1
+            variants={fadeInUp}
+            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+          >
+            Contactez-Nous
+          </motion.h1>
+          <motion.p
+            variants={fadeInUp}
+            className="text-lg md:text-xl text-surface-300 max-w-2xl mx-auto"
+          >
+            Notre equipe est la pour repondre a toutes vos questions et vous
+            accompagner dans vos projets.
+          </motion.p>
+        </motion.div>
       </section>
 
+      {/* ----------------------------------------------------------------- */}
       {/* Contact Content */}
-      <section className="py-16">
+      {/* ----------------------------------------------------------------- */}
+      <section className="py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            {/* -------------------------------------------------------------- */}
+            {/* Left column — Contact info + Hours */}
+            {/* -------------------------------------------------------------- */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={staggerContainer}
+              className="space-y-6"
+            >
+              <motion.h2
+                variants={fadeInUp}
+                className="text-2xl font-bold text-surface-900 tracking-tight"
+              >
                 Informations de Contact
-              </h2>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <Mail className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                    <a
-                      href="mailto:contact@afrikalytics.com"
-                      className="text-blue-600 hover:text-blue-700"
-                    >
-                      contact@afrikalytics.com
-                    </a>
-                  </div>
-                </div>
+              </motion.h2>
 
-                <div className="flex items-start">
-                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <MapPin className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Adresse</h3>
-                    <p className="text-gray-600">Dakar, Sénégal</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="bg-blue-100 p-3 rounded-lg mr-4">
-                    <Phone className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Téléphone</h3>
-                    <p className="text-gray-600">+221 77 361 90 28</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 p-6 bg-blue-50 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Horaires</h3>
-                <p className="text-gray-600">
-                  Lundi - Vendredi: 9h00 - 18h00 (GMT)<br />
-                  Samedi - Dimanche: Fermé
-                </p>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="bg-white rounded-xl shadow-md p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Envoyez-nous un Message
-              </h2>
-
-              {submitted ? (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
-                  <div className="text-green-600 text-5xl mb-4">✓</div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Message envoyé !
-                  </h3>
-                  <p className="text-gray-600">
-                    Nous vous répondrons dans les plus brefs délais.
-                  </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="mt-4 text-blue-600 hover:text-blue-700 font-semibold"
-                  >
-                    Envoyer un autre message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {error && (
-                    <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm">
-                      {error}
+              {/* Contact info cards */}
+              {contactItems.map((item) => (
+                <motion.div key={item.title} variants={fadeInUp}>
+                  <Card variant="default" padding="md">
+                    <div className="flex items-start gap-4">
+                      <div className="p-2.5 rounded-lg bg-primary-50 text-primary-600 shrink-0">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-surface-900 mb-1">
+                          {item.title}
+                        </h3>
+                        {item.content}
+                      </div>
                     </div>
+                  </Card>
+                </motion.div>
+              ))}
+
+              {/* Hours card */}
+              <motion.div variants={fadeInUp}>
+                <Card variant="bordered" padding="md">
+                  <div className="flex items-start gap-4">
+                    <div className="p-2.5 rounded-lg bg-primary-50 text-primary-600 shrink-0">
+                      <Clock className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-surface-900 mb-1">
+                        Horaires
+                      </h3>
+                      <p className="text-surface-600 text-sm leading-relaxed">
+                        Lundi - Vendredi : 9h00 - 18h00 (GMT)
+                        <br />
+                        Samedi - Dimanche : Ferme
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            </motion.div>
+
+            {/* -------------------------------------------------------------- */}
+            {/* Right column — Form */}
+            {/* -------------------------------------------------------------- */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={fadeInUp}>
+                <Card variant="elevated" padding="lg">
+                  <h2 className="text-2xl font-bold text-surface-900 tracking-tight mb-6">
+                    Envoyez-nous un Message
+                  </h2>
+
+                  {submitted ? (
+                    /* ---------------------------------------------------- */
+                    /* Success state */
+                    /* ---------------------------------------------------- */
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-center py-8"
+                    >
+                      <div className="flex items-center justify-center gap-2 p-3 rounded-lg bg-success-50 text-success-600 text-sm mb-6">
+                        <CheckCircle className="h-5 w-5 shrink-0" />
+                        <span className="font-medium">
+                          Message envoye avec succes !
+                        </span>
+                      </div>
+                      <p className="text-surface-600 mb-6">
+                        Nous vous repondrons dans les plus brefs delais.
+                      </p>
+                      <Button
+                        variant="secondary"
+                        size="md"
+                        onClick={() => setSubmitted(false)}
+                      >
+                        Envoyer un autre message
+                      </Button>
+                    </motion.div>
+                  ) : (
+                    /* ---------------------------------------------------- */
+                    /* Form */
+                    /* ---------------------------------------------------- */
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                      {/* Error alert */}
+                      {error && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="flex items-center gap-1.5 p-3 rounded-lg bg-danger-50 text-danger-600 text-sm"
+                          role="alert"
+                        >
+                          <AlertCircle className="h-4 w-4 shrink-0" />
+                          {error}
+                        </motion.div>
+                      )}
+
+                      <Input
+                        label="Nom complet"
+                        name="name"
+                        type="text"
+                        icon={<User className="h-4 w-4" />}
+                        size="lg"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Jean Dupont"
+                        maxLength={100}
+                      />
+
+                      <Input
+                        label="Email"
+                        name="email"
+                        type="email"
+                        icon={<Mail className="h-4 w-4" />}
+                        size="lg"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="jean@example.com"
+                        maxLength={254}
+                      />
+
+                      <Input
+                        label="Entreprise"
+                        name="company"
+                        type="text"
+                        icon={<Building2 className="h-4 w-4" />}
+                        size="lg"
+                        value={formData.company}
+                        onChange={handleChange}
+                        placeholder="Nom de votre entreprise"
+                        maxLength={150}
+                      />
+
+                      <Textarea
+                        label="Message"
+                        name="message"
+                        required
+                        value={formData.message}
+                        onChange={handleChange}
+                        rows={5}
+                        placeholder="Comment pouvons-nous vous aider ?"
+                        maxLength={2000}
+                      />
+
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        size="lg"
+                        fullWidth
+                        loading={isSubmitting}
+                        iconRight={<Send className="h-5 w-5" />}
+                      >
+                        {isSubmitting
+                          ? "Envoi en cours..."
+                          : "Envoyer le message"}
+                      </Button>
+                    </form>
                   )}
-
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Nom complet *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Jean Dupont"
-                      maxLength={100}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="jean@example.com"
-                      maxLength={254}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                      Entreprise
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      placeholder="Nom de votre entreprise"
-                      maxLength={150}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={5}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                      placeholder="Comment pouvons-nous vous aider ?"
-                      maxLength={2000}
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Envoi en cours...
-                      </>
-                    ) : (
-                      <>
-                        Envoyer le message
-                        <Send className="ml-2 h-5 w-5" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
+                </Card>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>

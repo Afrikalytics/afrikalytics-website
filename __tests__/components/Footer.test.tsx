@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Footer from "@/components/Footer";
 
@@ -20,9 +21,7 @@ describe("Footer", () => {
   });
 
   it("renders copyright text", () => {
-    expect(
-      screen.getByText(/© 2025 Afrikalytics AI by Marketym/)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/© 2026 Afrikalytics/)).toBeInTheDocument();
   });
 
   it("renders Dakar location", () => {

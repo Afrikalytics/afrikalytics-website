@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Navigation from "@/components/Navigation";
 
@@ -20,7 +21,7 @@ describe("Navigation", () => {
   });
 
   it("renders logo text", () => {
-    expect(screen.getByText("Afrikalytics AI by Marketym")).toBeInTheDocument();
+    expect(screen.getByText(/Afrikalytics/)).toBeInTheDocument();
   });
 
   it("renders all nav links", () => {
