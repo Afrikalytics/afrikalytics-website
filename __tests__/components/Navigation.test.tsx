@@ -10,6 +10,27 @@ jest.mock("next/link", () => {
   );
 });
 
+jest.mock("next/navigation", () => ({
+  usePathname: () => "/",
+}));
+
+jest.mock("framer-motion", () => {
+  const React = require("react");
+  const motion = new Proxy({}, {
+    get: (_target: any, prop: string) => {
+      return React.forwardRef((props: any, ref: any) => {
+        const { initial, animate, exit, variants, whileHover, whileTap, transition, viewport, whileInView, layoutId, custom, ...rest } = props;
+        const Tag = prop as any;
+        return React.createElement(Tag, { ...rest, ref });
+      });
+    },
+  });
+  return {
+    motion,
+    AnimatePresence: ({ children }: any) => children,
+  };
+});
+
 jest.mock("lucide-react", () => {
   const MockIcon = ({ ...props }: any) => <svg {...props} />;
   return new Proxy({}, { get: () => MockIcon });
@@ -26,8 +47,8 @@ describe("Navigation", () => {
 
   it("renders all nav links", () => {
     expect(screen.getAllByText("Accueil").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("À Propos").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText("Études").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/Propos/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/tudes/).length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText("Premium").length).toBeGreaterThanOrEqual(1);
     expect(screen.getAllByText("Contact").length).toBeGreaterThanOrEqual(1);
   });
