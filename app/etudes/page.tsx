@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import {
+  BarChart3,
   Clock,
   Calendar,
   ChevronRight,
@@ -13,18 +14,11 @@ import {
   Lock,
   Users,
   Building2,
-  Loader2,
-  BarChart3,
+  Menu,
+  X,
 } from "lucide-react";
-import { API_URL } from "@/lib/constants";
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Input } from "@/components/ui/Input";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
+const API_URL = "https://web-production-ef657.up.railway.app";
 
 interface Study {
   id: number;
@@ -40,48 +34,21 @@ interface Study {
   embed_url_entreprise: string;
 }
 
-// ---------------------------------------------------------------------------
-// Animations
-// ---------------------------------------------------------------------------
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-function statusBadgeVariant(status: string): "success" | "danger" | "warning" {
-  if (status === "Ouvert") return "success";
-  if (status === "Ferm\u00e9") return "danger";
-  return "warning";
-}
-
-// ---------------------------------------------------------------------------
-// Page
-// ---------------------------------------------------------------------------
-
 export default function PublicEtudesPage() {
+  const router = useRouter();
   const [studies, setStudies] = useState<Study[]>([]);
   const [filteredStudies, setFilteredStudies] = useState<Study[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("Tous");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     fetchStudies();
   }, []);
 
   useEffect(() => {
-    filterStudiesData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    filterStudies();
   }, [studies, searchTerm, filterStatus]);
 
   const fetchStudies = async () => {
@@ -98,16 +65,15 @@ export default function PublicEtudesPage() {
     }
   };
 
-  const filterStudiesData = () => {
+  const filterStudies = () => {
     let filtered = studies;
 
     if (searchTerm) {
-      const term = searchTerm.toLowerCase();
       filtered = filtered.filter(
         (study) =>
-          study.title.toLowerCase().includes(term) ||
-          study.description.toLowerCase().includes(term) ||
-          study.category.toLowerCase().includes(term)
+          study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          study.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          study.category.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -119,78 +85,109 @@ export default function PublicEtudesPage() {
   };
 
   const handlePremiumClick = () => {
-    window.location.href = "https://dashboard.afrikalytics.com/login";
+    router.push("https://dashboard.afrikalytics.com/login");
   };
-
-  // -------------------------------------------------------------------------
-  // Loading state
-  // -------------------------------------------------------------------------
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-surface-50">
-        <Loader2 className="h-10 w-10 animate-spin text-primary-600" />
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
-  // -------------------------------------------------------------------------
-  // Render
-  // -------------------------------------------------------------------------
-
   return (
-    <div className="pt-16 min-h-screen bg-surface-50">
-      {/* ================================================================= */}
-      {/* Hero Section — dark corporate                                     */}
-      {/* ================================================================= */}
-      <section className="bg-surface-950 text-white py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-white/10 text-sm font-medium text-surface-300">
-              <BarChart3 className="h-4 w-4 text-primary-400" />
-              Intelligence de march&eacute;
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <a href="/" className="flex items-center gap-2">
+              <div className="bg-blue-600 p-2 rounded-lg">
+                <BarChart3 className="h-6 w-6 text-white" />
+              </div>
+              <span className="font-bold text-xl text-gray-900">Afrikalytics AI by Marketym</span>
+            </a>
+
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-6">
+              <a href="/" className="text-gray-600 hover:text-gray-900">Accueil</a>
+              <a href="/about" className="text-gray-600 hover:text-gray-900">À Propos</a>
+              <a href="/etudes" className="text-blue-600 font-medium">Études</a>
+              <a href="/premium" className="text-gray-600 hover:text-gray-900">Premium</a>
+              <a href="/contact" className="text-gray-600 hover:text-gray-900">Contact</a>
+              <a
+                href="https://dashboard.afrikalytics.com/login"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                Se Connecter
+              </a>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-gray-600"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Nav */}
+          {mobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-gray-200">
+              <nav className="flex flex-col gap-4">
+                <a href="/" className="text-gray-600 hover:text-gray-900">Accueil</a>
+                <a href="/about" className="text-gray-600 hover:text-gray-900">À Propos</a>
+                <a href="/etudes" className="text-blue-600 font-medium">Études</a>
+                <a href="/premium" className="text-gray-600 hover:text-gray-900">Premium</a>
+                <a href="/contact" className="text-gray-600 hover:text-gray-900">Contact</a>
+                <a
+                  href="https://dashboard.afrikalytics.com/login"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-center"
+                >
+                  Se Connecter
+                </a>
+              </nav>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
-              Nos &Eacute;tudes de March&eacute;
-            </h1>
-            <p className="text-surface-400 text-lg max-w-2xl mx-auto leading-relaxed">
-              Participez &agrave; nos &eacute;tudes et acc&eacute;dez aux insights exclusifs sur les
-              march&eacute;s africains francophones.
-            </p>
-          </motion.div>
+          )}
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-12 lg:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-4">Nos Études de Marché</h1>
+          <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+            Participez à nos études et accédez aux insights exclusifs sur les marchés africains
+          </p>
         </div>
       </section>
 
-      {/* ================================================================= */}
-      {/* Main Content                                                      */}
-      {/* ================================================================= */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* --------------------------------------------------------------- */}
-        {/* Filter bar                                                      */}
-        {/* --------------------------------------------------------------- */}
-        <Card variant="default" padding="md" className="mb-8">
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Filters */}
+        <div className="bg-white rounded-xl shadow-sm p-4 lg:p-6 mb-6">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search */}
-            <div className="flex-1">
-              <Input
-                placeholder="Rechercher une &eacute;tude..."
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Rechercher une étude..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                icon={<Search className="h-4 w-4" />}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
-            {/* Status filter */}
-            <div className="flex items-center gap-3">
-              <Filter className="h-5 w-5 text-surface-400 shrink-0" />
+            {/* Status Filter */}
+            <div className="flex items-center gap-2">
+              <Filter className="h-5 w-5 text-gray-400" />
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="w-full lg:w-auto rounded-lg border border-surface-300 bg-white px-4 py-2.5 text-sm text-surface-700 transition-all duration-150 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 hover:border-surface-400"
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
                 <option value="Tous">Tous les statuts</option>
                 <option value="Ouvert">Ouvert</option>
@@ -201,201 +198,152 @@ export default function PublicEtudesPage() {
           </div>
 
           {/* Results count */}
-          <p className="mt-4 text-sm text-surface-500">
-            {filteredStudies.length} &eacute;tude
-            {filteredStudies.length !== 1 ? "s" : ""} trouv&eacute;e
+          <div className="mt-4 text-sm text-gray-500">
+            {filteredStudies.length} étude{filteredStudies.length !== 1 ? "s" : ""} trouvée
             {filteredStudies.length !== 1 ? "s" : ""}
-          </p>
-        </Card>
+          </div>
+        </div>
 
-        {/* --------------------------------------------------------------- */}
-        {/* Studies grid                                                    */}
-        {/* --------------------------------------------------------------- */}
+        {/* Studies Grid */}
         {filteredStudies.length === 0 ? (
-          <Card variant="default" padding="lg" className="text-center">
-            <p className="text-surface-500 text-lg">
-              Aucune &eacute;tude trouv&eacute;e.
-            </p>
-          </Card>
+          <div className="bg-white rounded-xl shadow-sm p-12 text-center">
+            <p className="text-gray-500 text-lg">Aucune étude trouvée.</p>
+          </div>
         ) : (
-          <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-            variants={stagger}
-            initial="hidden"
-            animate="visible"
-          >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {filteredStudies.map((study) => (
-              <motion.div key={study.id} variants={fadeInUp}>
-                <Card variant="interactive" padding="md" className="h-full flex flex-col">
-                  {/* Header */}
-                  <div className="flex justify-between items-start gap-3 mb-4">
-                    <h3 className="text-lg font-bold text-surface-900 leading-snug flex-1">
-                      {study.title}
-                    </h3>
-                    <Badge
-                      variant={statusBadgeVariant(study.status)}
-                      size="sm"
-                      dot
-                      aria-label={`Statut : ${study.status}`}
-                    >
-                      {study.status}
-                    </Badge>
+              <div
+                key={study.id}
+                className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow"
+              >
+                {/* Header */}
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 flex-1">{study.title}</h3>
+                  <span
+                    className={`text-xs font-semibold px-3 py-1 rounded-full ml-3 ${
+                      study.status === "Ouvert"
+                        ? "bg-green-100 text-green-700"
+                        : study.status === "Fermé"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {study.status}
+                  </span>
+                </div>
+
+                <p className="text-gray-600 text-sm mb-4 line-clamp-2">{study.description}</p>
+
+                <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    <span>{study.duration}</span>
                   </div>
+                  {study.deadline && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      <span>Jusqu&apos;au {study.deadline}</span>
+                    </div>
+                  )}
+                </div>
 
-                  {/* Description */}
-                  <p className="text-surface-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                    {study.description}
-                  </p>
+                <div className="text-blue-600 font-medium text-sm mb-4">{study.category}</div>
 
-                  {/* Meta */}
-                  <div className="flex flex-wrap items-center gap-4 text-sm text-surface-500 mb-4">
-                    <span className="inline-flex items-center gap-1.5">
-                      <Clock className="h-4 w-4" />
-                      {study.duration}
-                    </span>
-                    {study.deadline && (
-                      <span className="inline-flex items-center gap-1.5">
-                        <Calendar className="h-4 w-4" />
-                        Jusqu&apos;au {study.deadline}
-                      </span>
-                    )}
-                  </div>
+                {/* Boutons */}
+                <div className="space-y-2 pt-4 border-t border-gray-100">
+                  {/* Boutons Participer - Seulement si Ouvert */}
+                  {study.status === "Ouvert" && (
+                    <div className="grid grid-cols-2 gap-2 mb-2">
+                      <a
+                        href={`/etudes/${study.id}?type=particulier`}
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                      >
+                        <Users className="h-5 w-5" />
+                        <span className="font-medium">Particulier</span>
+                      </a>
+                      <a
+                        href={`/etudes/${study.id}?type=entreprise`}
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                      >
+                        <Building2 className="h-5 w-5" />
+                        <span className="font-medium">Entreprise</span>
+                      </a>
+                    </div>
+                  )}
 
-                  {/* Category */}
-                  <Badge variant="primary" size="sm" className="mb-4 self-start">
-                    {study.category}
-                  </Badge>
+                  {/* Bouton Résultats - Toujours visible avec 🔒 */}
+                  <button
+                    onClick={handlePremiumClick}
+                    className="flex items-center justify-between w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Lock className="h-5 w-5 text-yellow-600" />
+                      <span className="font-medium">Voir les résultats</span>
+                      <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">Premium</span>
+                    </div>
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
 
-                  {/* Spacer to push buttons to bottom */}
-                  <div className="flex-1" />
+                  {/* Boutons Insight & Rapport - Seulement si Fermé */}
+                  {study.status === "Fermé" && (
+                    <>
+                      <button
+                        onClick={handlePremiumClick}
+                        className="flex items-center justify-between w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Lock className="h-5 w-5 text-yellow-600" />
+                          <Lightbulb className="h-5 w-5 text-purple-500" />
+                          <span className="font-medium">Lire l&apos;insight</span>
+                          <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">Premium</span>
+                        </div>
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
 
-                  {/* Actions */}
-                  <div className="space-y-2 pt-4 border-t border-surface-100">
-                    {/* Participate buttons — only when Ouvert */}
-                    {study.status === "Ouvert" && (
-                      <div className="grid grid-cols-2 gap-2 mb-2">
-                        <Button
-                          variant="primary"
-                          size="md"
-                          icon={<Users className="h-4 w-4" />}
-                          fullWidth
-                          onClick={() => {
-                            window.location.href = `/etudes/${study.id}?type=particulier`;
-                          }}
-                        >
-                          Particulier
-                        </Button>
-                        <Button
-                          variant="accent"
-                          size="md"
-                          icon={<Building2 className="h-4 w-4" />}
-                          fullWidth
-                          onClick={() => {
-                            window.location.href = `/etudes/${study.id}?type=entreprise`;
-                          }}
-                        >
-                          Entreprise
-                        </Button>
-                      </div>
-                    )}
-
-                    {/* Results — always visible */}
-                    <Button
-                      variant="secondary"
-                      size="md"
-                      fullWidth
-                      icon={<Lock className="h-4 w-4 text-warning-600" />}
-                      iconRight={<ChevronRight className="h-4 w-4" />}
-                      onClick={handlePremiumClick}
-                      className="justify-between"
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        Voir les r&eacute;sultats
-                        <Badge variant="warning" size="sm">Premium</Badge>
-                      </span>
-                    </Button>
-
-                    {/* Insight & Report — only when Ferm&eacute; */}
-                    {study.status === "Ferm\u00e9" && (
-                      <>
-                        <Button
-                          variant="secondary"
-                          size="md"
-                          fullWidth
-                          icon={
-                            <span className="inline-flex items-center gap-1">
-                              <Lock className="h-4 w-4 text-warning-600" />
-                              <Lightbulb className="h-4 w-4 text-purple-500" />
-                            </span>
-                          }
-                          iconRight={<ChevronRight className="h-4 w-4" />}
-                          onClick={handlePremiumClick}
-                          className="justify-between"
-                        >
-                          <span className="inline-flex items-center gap-2">
-                            Lire l&apos;insight
-                            <Badge variant="warning" size="sm">Premium</Badge>
-                          </span>
-                        </Button>
-
-                        <Button
-                          variant="secondary"
-                          size="md"
-                          fullWidth
-                          icon={
-                            <span className="inline-flex items-center gap-1">
-                              <Lock className="h-4 w-4 text-warning-600" />
-                              <Download className="h-4 w-4 text-green-500" />
-                            </span>
-                          }
-                          iconRight={<ChevronRight className="h-4 w-4" />}
-                          onClick={handlePremiumClick}
-                          className="justify-between"
-                        >
-                          <span className="inline-flex items-center gap-2">
-                            T&eacute;l&eacute;charger le rapport
-                            <Badge variant="warning" size="sm">Premium</Badge>
-                          </span>
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                </Card>
-              </motion.div>
+                      <button
+                        onClick={handlePremiumClick}
+                        className="flex items-center justify-between w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Lock className="h-5 w-5 text-yellow-600" />
+                          <Download className="h-5 w-5 text-green-500" />
+                          <span className="font-medium">Télécharger le rapport</span>
+                          <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">Premium</span>
+                        </div>
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         )}
 
-        {/* --------------------------------------------------------------- */}
-        {/* CTA Section                                                     */}
-        {/* --------------------------------------------------------------- */}
-        <motion.section
-          className="mt-16 rounded-2xl bg-surface-950 p-8 lg:p-12 text-center"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-            Acc&eacute;dez &agrave; tous les r&eacute;sultats et insights
+        {/* CTA Section */}
+        <div className="mt-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 lg:p-12 text-white text-center">
+          <h2 className="text-2xl lg:text-3xl font-bold mb-4">
+            Accédez à tous les résultats et insights
           </h2>
-          <p className="text-surface-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Devenez membre Premium pour consulter les analyses d&eacute;taill&eacute;es,
-            t&eacute;l&eacute;charger les rapports complets et acc&eacute;der &agrave; notre
-            intelligence de march&eacute; exclusive.
+          <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+            Devenez membre Premium pour consulter les analyses détaillées, télécharger les rapports complets et accéder à notre intelligence de marché exclusive.
           </p>
-          <Button
-            variant="secondary"
-            size="lg"
-            iconRight={<ChevronRight className="h-5 w-5" />}
-            onClick={() => {
-              window.location.href = "/premium";
-            }}
+          <a
+            href="/premium"
+            className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
           >
-            D&eacute;couvrir les offres Premium
-          </Button>
-        </motion.section>
+            Découvrir les offres Premium
+            <ChevronRight className="h-5 w-5" />
+          </a>
+        </div>
       </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8 mt-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-400">© 2024 Afrikalytics. Tous droits réservés.</p>
+        </div>
+      </footer>
     </div>
   );
 }

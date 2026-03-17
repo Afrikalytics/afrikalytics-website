@@ -1,17 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Crown, Mail, User, ArrowRight, Shield, CheckCircle } from "lucide-react";
-import { API_URL, isSafePaymentUrl } from "@/lib/constants";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import { Crown, Mail, User, ArrowRight, Shield, CheckCircle, Loader2 } from "lucide-react";
+
+const API_URL = "https://web-production-ef657.up.railway.app";
 
 export default function CheckoutPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [existingUser, setExistingUser] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +23,6 @@ export default function CheckoutPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
         },
         body: JSON.stringify({
           email: email,
@@ -35,12 +33,9 @@ export default function CheckoutPage() {
 
       const data = await response.json();
 
-      if (data.success && data.payment_url && isSafePaymentUrl(data.payment_url)) {
+      if (data.success && data.payment_url) {
         // Rediriger vers PayDunya
         window.location.href = data.payment_url;
-      } else if (data.success && data.payment_url) {
-        setError("URL de paiement invalide. Contactez le support.");
-        setLoading(false);
       } else {
         setError(data.detail || "Erreur lors de la création du paiement");
         setLoading(false);
@@ -52,8 +47,21 @@ export default function CheckoutPage() {
     }
   };
 
+  // Vérifier si l'email existe déjà
+  const checkExistingUser = async (emailToCheck: string) => {
+    if (!emailToCheck || !emailToCheck.includes("@")) return;
+    
+    try {
+      const response = await fetch(`${API_URL}/api/studies`);
+      // On ne peut pas vraiment vérifier sans endpoint dédié
+      // Pour l'instant on laisse passer
+    } catch (err) {
+      // Ignorer
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-surface-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 flex items-center justify-center p-4">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div
@@ -69,25 +77,20 @@ export default function CheckoutPage() {
         <div className="text-center mb-8">
           <a href="https://afrikalytics.com" className="inline-block">
             <h1 className="text-3xl font-bold text-white">
-              Afrikalytics<span className="text-accent-400">.</span>
+              Afrikalytics<span className="text-yellow-400">.</span>
             </h1>
           </a>
         </div>
 
         {/* Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white rounded-2xl shadow-heavy overflow-hidden"
-        >
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-primary-600 to-accent-600 p-6 text-white text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-400 rounded-full mb-4">
-              <Crown className="h-8 w-8 text-accent-900" />
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-400 rounded-full mb-4">
+              <Crown className="h-8 w-8 text-yellow-800" />
             </div>
             <h2 className="text-2xl font-bold">Plan Professionnel</h2>
-            <p className="text-primary-100 mt-2">Accès complet à toutes les fonctionnalités</p>
+            <p className="text-blue-100 mt-2">Accès complet à toutes les fonctionnalités</p>
             <div className="mt-4">
               <span className="text-4xl font-bold">295 000</span>
               <span className="text-xl ml-2">CFA/mois</span>
@@ -95,22 +98,22 @@ export default function CheckoutPage() {
           </div>
 
           {/* Features */}
-          <div className="p-6 bg-surface-50 border-b">
+          <div className="p-6 bg-gray-50 border-b">
             <div className="grid grid-cols-2 gap-3 text-sm">
-              <div className="flex items-center gap-2 text-surface-700">
-                <CheckCircle className="h-4 w-4 text-success-500" />
+              <div className="flex items-center gap-2 text-gray-700">
+                <CheckCircle className="h-4 w-4 text-green-500" />
                 Résultats temps réel
               </div>
-              <div className="flex items-center gap-2 text-surface-700">
-                <CheckCircle className="h-4 w-4 text-success-500" />
+              <div className="flex items-center gap-2 text-gray-700">
+                <CheckCircle className="h-4 w-4 text-green-500" />
                 Insights complets
               </div>
-              <div className="flex items-center gap-2 text-surface-700">
-                <CheckCircle className="h-4 w-4 text-success-500" />
+              <div className="flex items-center gap-2 text-gray-700">
+                <CheckCircle className="h-4 w-4 text-green-500" />
                 Rapports PDF
               </div>
-              <div className="flex items-center gap-2 text-surface-700">
-                <CheckCircle className="h-4 w-4 text-success-500" />
+              <div className="flex items-center gap-2 text-gray-700">
+                <CheckCircle className="h-4 w-4 text-green-500" />
                 Support prioritaire
               </div>
             </div>
@@ -119,66 +122,89 @@ export default function CheckoutPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 space-y-4">
             {error && (
-              <div className="bg-danger-50 border border-danger-200 text-danger-700 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
                 {error}
               </div>
             )}
 
-            <Input
-              label="Nom complet"
-              icon={<User className="h-5 w-5" />}
-              size="lg"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              placeholder="Votre nom complet"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Nom complet
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  placeholder="Votre nom complet"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                />
+              </div>
+            </div>
 
-            <Input
-              label="Adresse email"
-              icon={<Mail className="h-5 w-5" />}
-              size="lg"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="votre@email.com"
-              helper="Vos identifiants de connexion seront envoyés à cette adresse"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Adresse email
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    checkExistingUser(e.target.value);
+                  }}
+                  required
+                  placeholder="votre@email.com"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                />
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Vos identifiants de connexion seront envoyés à cette adresse
+              </p>
+            </div>
 
-            <Button
+            <button
               type="submit"
-              variant="primary"
-              size="lg"
-              fullWidth
-              loading={loading}
-              disabled={!name || !email}
-              iconRight={!loading ? <ArrowRight className="h-5 w-5" /> : undefined}
+              disabled={loading || !name || !email}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? "Redirection vers le paiement..." : "Payer 295 000 CFA"}
-            </Button>
+              {loading ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Redirection vers le paiement...
+                </>
+              ) : (
+                <>
+                  Payer 295 000 CFA
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              )}
+            </button>
 
             {/* Security Badge */}
-            <div className="flex items-center justify-center gap-2 text-surface-500 text-sm pt-2">
+            <div className="flex items-center justify-center gap-2 text-gray-500 text-sm pt-2">
               <Shield className="h-4 w-4" />
               Paiement sécurisé par PayDunya
             </div>
 
             {/* Payment Methods */}
-            <div className="text-center text-xs text-surface-400 pt-2">
-              Orange Money &bull; Wave &bull; Free Money &bull; Carte bancaire
+            <div className="text-center text-xs text-gray-400 pt-2">
+              Orange Money • Wave • Free Money • Carte bancaire
             </div>
           </form>
-        </motion.div>
+        </div>
 
         {/* Back Link */}
         <div className="text-center mt-6">
           <a
             href="https://afrikalytics.com/premium"
-            className="text-surface-400 hover:text-white transition text-sm"
+            className="text-blue-200 hover:text-white transition text-sm"
           >
-            &larr; Retour aux offres
+            ← Retour aux offres
           </a>
         </div>
       </div>

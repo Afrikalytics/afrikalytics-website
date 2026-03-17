@@ -1,19 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-heading",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Afrikalytics AI - Intelligence d'Affaires pour l'Afrique",
@@ -74,12 +65,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${inter.variable} ${playfair.variable} ${inter.className}`}>
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-white focus:text-primary-600">
-          Aller au contenu principal
-        </a>
+      <body className={inter.className}>
         <Navigation />
-        <main id="main-content" className="min-h-screen">
+        <main className="min-h-screen">
           {children}
         </main>
         <Footer />
