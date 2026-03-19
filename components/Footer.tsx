@@ -1,55 +1,142 @@
 import Link from "next/link";
+import { MapPin, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-400 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+    <footer className="bg-gray-900 text-gray-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Afrikalytics AI by Marketym */}
           <div>
-            <div className="text-2xl font-extrabold mb-4">
-              <span className="text-[#6B46C1]">INTO</span>
-              <span className="text-white">WORK</span>
-            </div>
-            <p className="text-sm leading-relaxed">
-              La plateforme IA qui connecte talents et entreprises avec precision.
+            <h3 className="text-white font-bold text-lg mb-4">Afrikalytics AI by Marketym</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Afrikalytics AI est une solution d'études de marché du cabinet MARKETYM by H&C qui est une entreprise du groupe H&C.
             </p>
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center">
+                <MapPin className="h-4 w-4 mr-2 text-gray-500" />
+                <span>Dakar, Sénégal</span>
+              </div>
+              <div className="flex items-center">
+                <Mail className="h-4 w-4 mr-2 text-gray-500" />
+                <span>contact@afrikalytics.com</span>
+              </div>
+              <div className="flex items-center">
+                <Phone className="h-4 w-4 mr-2 text-gray-500" />
+                <span>+221 77 361 90 28</span>
+              </div>
+            </div>
           </div>
 
+          {/* Nos Services */}
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Produit</h4>
+            <h3 className="text-white font-bold text-lg mb-4">Nos Services</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#features" className="hover:text-white transition-colors">Fonctionnalites</a></li>
-              <li><a href="#pricing" className="hover:text-white transition-colors">Tarifs</a></li>
-              <li><a href="#security" className="hover:text-white transition-colors">Securite</a></li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Études RH
+                </Link>
+              </li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  AI Readiness Assessment
+                </Link>
+              </li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Salary Surveys
+                </Link>
+              </li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Business Intelligence
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Consulting Stratégique
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Entreprises */}
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Entreprise</h4>
+            <h3 className="text-white font-bold text-lg mb-4">Entreprises</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/about" className="hover:text-white transition-colors">A propos</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Participer à une étude
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Demander une étude sur mesure
+                </Link>
+              </li>
+              <li>
+                <Link href="/premium" className="hover:text-white transition-colors">
+                  Accès premium
+                </Link>
+              </li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Benchmarking sectoriel
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Contact commercial
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Particuliers */}
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Legal</h4>
+            <h3 className="text-white font-bold text-lg mb-4">Particuliers</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/confidentialite" className="hover:text-white transition-colors">Politique de confidentialite</Link></li>
-              <li><Link href="/cgu" className="hover:text-white transition-colors">CGU</Link></li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Participer aux sondages
+                </Link>
+              </li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Salary benchmarks
+                </Link>
+              </li>
+              <li>
+                <Link href="/etudes" className="hover:text-white transition-colors">
+                  Tendances carrière
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Newsletter
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">
+                  A propos
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm">&copy; 2026 INTOWORK. Tous droits reserves.</p>
-          <div className="flex gap-4">
-            <a href="#" aria-label="LinkedIn" className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#6B46C1] transition-colors">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z" /></svg>
-            </a>
-            <a href="#" aria-label="Twitter" className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#6B46C1] transition-colors">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" /></svg>
-            </a>
+        {/* Bottom */}
+        <div className="border-t border-gray-800 mt-10 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <p>© 2025 Afrikalytics AI by Marketym. Tous droits réservés.</p>
+            <div className="flex gap-6 mt-4 md:mt-0">
+              <Link href="/confidentialite" className="hover:text-white transition-colors">
+                Politique de confidentialité
+              </Link>
+              <Link href="/cgu" className="hover:text-white transition-colors">
+                Conditions d&apos;utilisation
+              </Link>
+            </div>
           </div>
         </div>
       </div>
