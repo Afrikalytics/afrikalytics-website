@@ -79,7 +79,7 @@ export default function PremiumPage() {
             </h1>
           </div>
           <p className="text-blue-100 text-lg max-w-2xl">
-            Choisissez le niveau d&apos;accès adapté à vos besoins et accédez aux insights stratégiques d&apos;Datatym AI by Marketym
+            Choisissez le niveau d&apos;accès adapté à vos besoins et accédez aux insights stratégiques Datatym AI by Marketym
           </p>
         </div>
       </div>
