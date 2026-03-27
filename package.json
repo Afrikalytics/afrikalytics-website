@@ -1,7 +1,7 @@
 {
-  "name": "afrikalytics-website",
+  "name": "Datatym-website",
   "version": "1.0.0",
-  "description": "Site public et landing page pour Afrikalytics AI by Marketym",
+  "description": "Site public et landing page pour Datatym AI by Marketym",
   "private": true,
   "scripts": {
     "dev": "next dev",

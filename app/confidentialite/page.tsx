@@ -35,7 +35,7 @@ export default function ConfidentialitePage() {
           {/* Introduction */}
           <section>
             <p className="text-gray-700 leading-relaxed">
-              Chez <strong>Afrikalytics AI by Marketym</strong>, nous attachons une grande importance à la protection de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations.
+              Chez <strong>Datatym AI by Marketym</strong>, nous attachons une grande importance à la protection de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations.
             </p>
           </section>
 
@@ -49,7 +49,7 @@ export default function ConfidentialitePage() {
               <p className="text-gray-700"><strong>MARKETYM by H&C</strong></p>
               <p className="text-gray-600">Entreprise du groupe H&C</p>
               <p className="text-gray-600">Dakar, Sénégal</p>
-              <p className="text-gray-600">Email : contact@afrikalytics.com</p>
+              <p className="text-gray-600">Email : contact@Datatym.com</p>
             </div>
           </section>
 
@@ -208,7 +208,7 @@ export default function ConfidentialitePage() {
               </div>
             </div>
             <p className="text-gray-700 leading-relaxed mt-4">
-              Pour exercer ces droits, contactez-nous à : <a href="mailto:contact@afrikalytics.com" className="text-blue-600 hover:underline">contact@afrikalytics.com</a>
+              Pour exercer ces droits, contactez-nous à : <a href="mailto:contact@Datatym.com" className="text-blue-600 hover:underline">contact@Datatym.com</a>
             </p>
           </section>
 
@@ -238,8 +238,8 @@ export default function ConfidentialitePage() {
               Pour toute question concernant cette politique ou vos données personnelles :
             </p>
             <div className="bg-gray-50 rounded-lg p-4 mt-4">
-              <p className="text-gray-700">Email : <a href="mailto:contact@afrikalytics.com" className="text-blue-600 hover:underline">contact@afrikalytics.com</a></p>
-              <p className="text-gray-700 mt-2">Formulaire de contact : <Link href="/contact" className="text-blue-600 hover:underline">afrikalytics.com/contact</Link></p>
+              <p className="text-gray-700">Email : <a href="mailto:contact@Datatym.com" className="text-blue-600 hover:underline">contact@Datatym.com</a></p>
+              <p className="text-gray-700 mt-2">Formulaire de contact : <Link href="/contact" className="text-blue-600 hover:underline">Datatym.com/contact</Link></p>
             </div>
           </section>
 

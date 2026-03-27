@@ -24,7 +24,7 @@ export default function Navigation() {
             <Link href="/" className="flex items-center space-x-2">
               <BarChart3 className="h-8 w-8 text-primary-600" />
               <span className="font-bold text-xl text-gray-900">
-                Afrikalytics AI by Marketym
+                Datatym AI by Marketym
               </span>
             </Link>
           </div>
@@ -41,7 +41,7 @@ export default function Navigation() {
               </Link>
             ))}
             <Link
-              href="https://dashboard.afrikalytics.com/login"
+              href="https://dashboard.Datatym.com/login"
               className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
             >
               Se Connecter
@@ -79,7 +79,7 @@ export default function Navigation() {
               </Link>
             ))}
             <Link
-              href="https://dashboard.afrikalytics.com/login"
+              href="https://dashboard.Datatym.com/login"
               className="block px-3 py-2 rounded-md text-base font-medium bg-primary-600 text-white hover:bg-primary-700"
               onClick={() => setIsOpen(false)}
             >

@@ -21,7 +21,7 @@ describe("Footer", () => {
   });
 
   it("renders copyright text", () => {
-    expect(screen.getByText(/© 2026 Afrikalytics/)).toBeInTheDocument();
+    expect(screen.getByText(/© 2026 Datatym/)).toBeInTheDocument();
   });
 
   it("renders Dakar location", () => {
@@ -29,7 +29,7 @@ describe("Footer", () => {
   });
 
   it("renders contact email", () => {
-    expect(screen.getByText("contact@afrikalytics.com")).toBeInTheDocument();
+    expect(screen.getByText("contact@Datatym.com")).toBeInTheDocument();
   });
 
   it("renders phone number", () => {

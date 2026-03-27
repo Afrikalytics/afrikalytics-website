@@ -85,7 +85,7 @@ export default function PublicEtudesPage() {
   };
 
   const handlePremiumClick = () => {
-    router.push("https://dashboard.afrikalytics.com/login");
+    router.push("https://dashboard.Datatym.com/login");
   };
 
   if (loading) {
@@ -106,7 +106,7 @@ export default function PublicEtudesPage() {
               <div className="bg-blue-600 p-2 rounded-lg">
                 <BarChart3 className="h-6 w-6 text-white" />
               </div>
-              <span className="font-bold text-xl text-gray-900">Afrikalytics AI by Marketym</span>
+              <span className="font-bold text-xl text-gray-900">Datatym AI by Marketym</span>
             </a>
 
             {/* Desktop Nav */}
@@ -117,7 +117,7 @@ export default function PublicEtudesPage() {
               <a href="/premium" className="text-gray-600 hover:text-gray-900">Premium</a>
               <a href="/contact" className="text-gray-600 hover:text-gray-900">Contact</a>
               <a
-                href="https://dashboard.afrikalytics.com/login"
+                href="https://dashboard.Datatym.com/login"
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
               >
                 Se Connecter
@@ -143,7 +143,7 @@ export default function PublicEtudesPage() {
                 <a href="/premium" className="text-gray-600 hover:text-gray-900">Premium</a>
                 <a href="/contact" className="text-gray-600 hover:text-gray-900">Contact</a>
                 <a
-                  href="https://dashboard.afrikalytics.com/login"
+                  href="https://dashboard.Datatym.com/login"
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-center"
                 >
                   Se Connecter
@@ -341,7 +341,7 @@ export default function PublicEtudesPage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400">© 2024 Afrikalytics. Tous droits réservés.</p>
+          <p className="text-gray-400">© 2024 Datatym. Tous droits réservés.</p>
         </div>
       </footer>
     </div>

@@ -42,7 +42,7 @@ describe("Navigation", () => {
   });
 
   it("renders logo text", () => {
-    expect(screen.getByText(/Afrikalytics/)).toBeInTheDocument();
+    expect(screen.getByText(/Datatym/)).toBeInTheDocument();
   });
 
   it("renders all nav links", () => {

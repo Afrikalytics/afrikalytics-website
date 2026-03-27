@@ -7,11 +7,11 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Afrikalytics AI - Intelligence d'Affaires pour l'Afrique",
+  title: "Datatym AI - Intelligence d'Affaires pour l'Afrique",
   description: "Plateforme de business intelligence alimentée par l'IA, spécialisée dans l'analyse du marché africain francophone. Études de marché, insights stratégiques et rapports sectoriels.",
   keywords: ["business intelligence", "Afrique", "études de marché", "analytics", "insights", "Sénégal", "francophone"],
   authors: [{ name: "Marketym" }],
-  creator: "Afrikalytics AI by Marketym",
+  creator: "Datatym AI by Marketym",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -27,22 +27,22 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://afrikalytics.com",
-    siteName: "Afrikalytics AI",
-    title: "Afrikalytics AI - Intelligence d'Affaires pour l'Afrique",
+    url: "https://Datatym.com",
+    siteName: "Datatym AI",
+    title: "Datatym AI - Intelligence d'Affaires pour l'Afrique",
     description: "Plateforme de business intelligence pour l'Afrique francophone",
     images: [
       {
         url: "/android-chrome-512.png",
         width: 512,
         height: 512,
-        alt: "Afrikalytics AI Logo",
+        alt: "Datatym AI Logo",
       },
     ],
   },
   twitter: {
     card: "summary",
-    title: "Afrikalytics AI",
+    title: "Datatym AI",
     description: "Intelligence d'Affaires pour l'Afrique",
     images: ["/android-chrome-512.png"],
   },

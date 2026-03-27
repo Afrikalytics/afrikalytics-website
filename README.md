@@ -1,11 +1,11 @@
-# 🌍 Afrikalytics AI by Marketym - Site Web Public
+# 🌍 Datatym AI by Marketym - Site Web Public
 
-Site web public pour Afrikalytics AI by Marketym - Intelligence d'Affaires pour l'Afrique
+Site web public pour Datatym AI by Marketym - Intelligence d'Affaires pour l'Afrique
 
 ## 📁 Structure du Projet
 
 ```
-afrikalytics-website/
+Datatym-website/
 ├── app/
 │   ├── page.tsx              # Landing page (accueil)
 │   ├── layout.tsx            # Layout principal
@@ -62,9 +62,9 @@ Le site sera accessible sur : **http://localhost:3000**
 
 ## 👥 Équipe
 
-- **Email:** contact@afrikalytics.com
+- **Email:** contact@Datatym.com
 - **Localisation:** Dakar, Sénégal
 
 ---
 
-© 2024 Afrikalytics AI by Marketym. Tous droits réservés.
+© 2024 Datatym AI by Marketym. Tous droits réservés.

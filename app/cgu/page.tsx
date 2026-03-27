@@ -36,13 +36,13 @@ export default function CGUPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">Article 1 - Mentions légales</h2>
             <p className="text-gray-700 leading-relaxed">
-              Le site <strong>afrikalytics.com</strong> et le dashboard <strong>dashboard.afrikalytics.com</strong> sont édités par :
+              Le site <strong>Datatym.com</strong> et le dashboard <strong>dashboard.Datatym.com</strong> sont édités par :
             </p>
             <div className="bg-gray-50 rounded-lg p-4 mt-4">
               <p className="text-gray-700"><strong>MARKETYM by H&C</strong></p>
               <p className="text-gray-600">Entreprise du groupe H&C</p>
               <p className="text-gray-600">Dakar, Sénégal</p>
-              <p className="text-gray-600">Email : contact@afrikalytics.com</p>
+              <p className="text-gray-600">Email : contact@Datatym.com</p>
             </div>
           </section>
 
@@ -50,7 +50,7 @@ export default function CGUPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">Article 2 - Objet</h2>
             <p className="text-gray-700 leading-relaxed">
-              Les présentes Conditions Générales d&apos;Utilisation (CGU) ont pour objet de définir les modalités d&apos;accès et d&apos;utilisation des services proposés par Afrikalytics AI, plateforme d&apos;intelligence d&apos;affaires et d&apos;études de marché pour l&apos;Afrique francophone.
+              Les présentes Conditions Générales d&apos;Utilisation (CGU) ont pour objet de définir les modalités d&apos;accès et d&apos;utilisation des services proposés par Datatym AI, plateforme d&apos;intelligence d&apos;affaires et d&apos;études de marché pour l&apos;Afrique francophone.
             </p>
             <p className="text-gray-700 leading-relaxed mt-4">
               En accédant à nos services, vous acceptez sans réserve les présentes CGU.
@@ -61,7 +61,7 @@ export default function CGUPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">Article 3 - Services proposés</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Afrikalytics AI propose les services suivants :
+              Datatym AI propose les services suivants :
             </p>
             <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4">
               <li>Participation à des études de marché et sondages</li>
@@ -75,7 +75,7 @@ export default function CGUPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">Article 4 - Plans et tarification</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              Afrikalytics AI propose plusieurs niveaux d&apos;accès :
+              Datatym AI propose plusieurs niveaux d&apos;accès :
             </p>
             <div className="space-y-4">
               <div className="border border-gray-200 rounded-lg p-4">
@@ -125,7 +125,7 @@ export default function CGUPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">Article 7 - Propriété intellectuelle</h2>
             <p className="text-gray-700 leading-relaxed">
-              L&apos;ensemble des contenus présents sur Afrikalytics AI (études, rapports, insights, analyses, graphiques, textes, logos) sont protégés par le droit de la propriété intellectuelle et appartiennent à MARKETYM by H&C ou à ses partenaires.
+              L&apos;ensemble des contenus présents sur Datatym AI (études, rapports, insights, analyses, graphiques, textes, logos) sont protégés par le droit de la propriété intellectuelle et appartiennent à MARKETYM by H&C ou à ses partenaires.
             </p>
             <p className="text-gray-700 leading-relaxed mt-4">
               Toute reproduction, distribution ou utilisation commerciale sans autorisation préalable est strictement interdite.
@@ -136,7 +136,7 @@ export default function CGUPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">Article 8 - Responsabilités</h2>
             <p className="text-gray-700 leading-relaxed">
-              Afrikalytics AI s&apos;efforce de fournir des informations fiables et actualisées. Cependant, nous ne garantissons pas l&apos;exactitude, l&apos;exhaustivité ou la pertinence des données pour une utilisation spécifique.
+              Datatym AI s&apos;efforce de fournir des informations fiables et actualisées. Cependant, nous ne garantissons pas l&apos;exactitude, l&apos;exhaustivité ou la pertinence des données pour une utilisation spécifique.
             </p>
             <p className="text-gray-700 leading-relaxed mt-4">
               Les décisions prises sur la base de nos études et rapports relèvent de la seule responsabilité de l&apos;utilisateur.
@@ -166,8 +166,8 @@ export default function CGUPage() {
               Pour toute question concernant ces CGU, vous pouvez nous contacter :
             </p>
             <div className="bg-gray-50 rounded-lg p-4 mt-4">
-              <p className="text-gray-700">Email : <a href="mailto:contact@afrikalytics.com" className="text-blue-600 hover:underline">contact@afrikalytics.com</a></p>
-              <p className="text-gray-700 mt-2">Formulaire de contact : <Link href="/contact" className="text-blue-600 hover:underline">afrikalytics.com/contact</Link></p>
+              <p className="text-gray-700">Email : <a href="mailto:contact@Datatym.com" className="text-blue-600 hover:underline">contact@Datatym.com</a></p>
+              <p className="text-gray-700 mt-2">Formulaire de contact : <Link href="/contact" className="text-blue-600 hover:underline">Datatym.com/contact</Link></p>
             </div>
           </section>
 
