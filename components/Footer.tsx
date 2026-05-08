@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-bold text-lg mb-4">Datatym AI</h3>
             <p className="text-gray-400 text-sm mb-4">
-              Datatym AI est une solution d'études de marché du cabinet MARKETYM by H&C qui est une entreprise du groupe H&C.
+              Datatym AI est une solution d&apos;études de marché du cabinet MARKETYM by H&amp;C qui est une entreprise du groupe H&amp;C.
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex items-center">
@@ -128,7 +128,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-gray-800 mt-10 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-            <p>© 2025 Datatym AI. Tous droits réservés.</p>
+            <p>© 2026 Datatym AI. Tous droits réservés.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <Link href="/confidentialite" className="hover:text-white transition-colors">
                 Politique de confidentialité
