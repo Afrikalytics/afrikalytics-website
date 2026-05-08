@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "Plateforme de business intelligence alimentée par l'IA, spécialisée dans l'analyse du marché africain francophone. Études de marché, insights stratégiques et rapports sectoriels.",
   keywords: ["business intelligence", "Afrique", "études de marché", "analytics", "insights", "Sénégal", "francophone"],
   authors: [{ name: "Marketym" }],
-  creator: "Datatym AI by Marketym",
+  creator: "Datatym AI",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

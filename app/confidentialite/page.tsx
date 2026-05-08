@@ -35,7 +35,7 @@ export default function ConfidentialitePage() {
           {/* Introduction */}
           <section>
             <p className="text-gray-700 leading-relaxed">
-              Chez <strong>Datatym AI by Marketym</strong>, nous attachons une grande importance à la protection de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations.
+              Chez <strong>Datatym AI</strong>, nous attachons une grande importance à la protection de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations.
             </p>
           </section>
 

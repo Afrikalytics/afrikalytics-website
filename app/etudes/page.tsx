@@ -106,7 +106,7 @@ export default function PublicEtudesPage() {
               <div className="bg-blue-600 p-2 rounded-lg">
                 <BarChart3 className="h-6 w-6 text-white" />
               </div>
-              <span className="font-bold text-xl text-gray-900">Datatym AI by Marketym</span>
+              <span className="font-bold text-xl text-gray-900">Datatym AI</span>
             </a>
 
             {/* Desktop Nav */}
