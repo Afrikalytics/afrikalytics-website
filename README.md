@@ -62,9 +62,9 @@ Le site sera accessible sur : **http://localhost:3000**
 
 ## 👥 Équipe
 
-- **Email:** contact@Datatym.com
+- **Email:** contact@datatym.ai
 - **Localisation:** Dakar, Sénégal
 
 ---
 
-© 2024 Datatym AI by Marketym. Tous droits réservés.
+© 2026 Datatym AI by Marketym. Tous droits réservés.

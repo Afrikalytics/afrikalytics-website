@@ -41,7 +41,9 @@ export default function Navigation() {
               </Link>
             ))}
             <Link
-              href="https://dashboard.Datatym.com/login"
+              href="https://dashboard.datatym.ai/login"
+              target="_blank"
+              rel="noopener noreferrer"
               className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
             >
               Se Connecter
@@ -79,7 +81,9 @@ export default function Navigation() {
               </Link>
             ))}
             <Link
-              href="https://dashboard.Datatym.com/login"
+              href="https://dashboard.datatym.ai/login"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block px-3 py-2 rounded-md text-base font-medium bg-primary-600 text-white hover:bg-primary-700"
               onClick={() => setIsOpen(false)}
             >

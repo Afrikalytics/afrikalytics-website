@@ -36,13 +36,13 @@ export default function CGUPage() {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">Article 1 - Mentions légales</h2>
             <p className="text-gray-700 leading-relaxed">
-              Le site <strong>Datatym.com</strong> et le dashboard <strong>dashboard.Datatym.com</strong> sont édités par :
+              Le site <strong>datatym.ai</strong> et le dashboard <strong>dashboard.datatym.ai</strong> sont édités par :
             </p>
             <div className="bg-gray-50 rounded-lg p-4 mt-4">
               <p className="text-gray-700"><strong>MARKETYM by H&C</strong></p>
               <p className="text-gray-600">Entreprise du groupe H&C</p>
               <p className="text-gray-600">Dakar, Sénégal</p>
-              <p className="text-gray-600">Email : contact@Datatym.com</p>
+              <p className="text-gray-600">Email : contact@datatym.ai</p>
             </div>
           </section>
 
@@ -166,8 +166,8 @@ export default function CGUPage() {
               Pour toute question concernant ces CGU, vous pouvez nous contacter :
             </p>
             <div className="bg-gray-50 rounded-lg p-4 mt-4">
-              <p className="text-gray-700">Email : <a href="mailto:contact@Datatym.com" className="text-blue-600 hover:underline">contact@Datatym.com</a></p>
-              <p className="text-gray-700 mt-2">Formulaire de contact : <Link href="/contact" className="text-blue-600 hover:underline">Datatym.com/contact</Link></p>
+              <p className="text-gray-700">Email : <a href="mailto:contact@datatym.ai" className="text-blue-600 hover:underline">contact@datatym.ai</a></p>
+              <p className="text-gray-700 mt-2">Formulaire de contact : <Link href="/contact" className="text-blue-600 hover:underline">datatym.ai/contact</Link></p>
             </div>
           </section>
 

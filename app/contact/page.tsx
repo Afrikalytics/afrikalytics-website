@@ -80,10 +80,10 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
                     <a
-                      href="mailto:contact@Datatym.com"
+                      href="mailto:contact@datatym.ai"
                       className="text-blue-600 hover:text-blue-700"
                     >
-                      contact@Datatym.com
+                      contact@datatym.ai
                     </a>
                   </div>
                 </div>

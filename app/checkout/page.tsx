@@ -75,7 +75,7 @@ export default function CheckoutPage() {
       <div className="relative w-full max-w-lg">
         {/* Logo */}
         <div className="text-center mb-8">
-          <a href="https://Datatym.com" className="inline-block">
+          <a href="https://datatym.ai" className="inline-block">
             <h1 className="text-3xl font-bold text-white">
               Datatym<span className="text-yellow-400">.</span>
             </h1>
@@ -201,7 +201,7 @@ export default function CheckoutPage() {
         {/* Back Link */}
         <div className="text-center mt-6">
           <a
-            href="https://Datatym.com/premium"
+            href="https://datatym.ai/premium"
             className="text-blue-200 hover:text-white transition text-sm"
           >
             ← Retour aux offres

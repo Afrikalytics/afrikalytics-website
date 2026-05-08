@@ -29,7 +29,7 @@ describe("Footer", () => {
   });
 
   it("renders contact email", () => {
-    expect(screen.getByText("contact@Datatym.com")).toBeInTheDocument();
+    expect(screen.getByText("contact@datatym.ai")).toBeInTheDocument();
   });
 
   it("renders phone number", () => {

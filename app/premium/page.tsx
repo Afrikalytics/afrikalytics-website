@@ -18,7 +18,7 @@ const plans = [
     ],
     popular: false,
     buttonText: "Commencer gratuitement",
-    buttonLink: "https://dashboard.Datatym.com/register",
+    buttonLink: "https://dashboard.datatym.ai/register",
   },
   {
     name: "Professionnel",

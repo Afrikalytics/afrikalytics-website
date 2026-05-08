@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://Datatym.com",
+    url: "https://datatym.ai",
     siteName: "Datatym AI",
     title: "Datatym AI - Intelligence d'Affaires pour l'Afrique",
     description: "Plateforme de business intelligence pour l'Afrique francophone",
